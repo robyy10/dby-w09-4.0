@@ -21,8 +21,8 @@
 #include <linux/rwsem.h>
 #include <linux/string.h>
 #include <securec.h>
-#include <apsensor_channel/ap_sensor_route.h>
-#include <apsensor_channel/ap_sensor.h>
+#include "apsensor_channel/ap_sensor_route.h"
+#include "apsensor_channel/ap_sensor.h"
 #include "sensors_class.h"
 #include "xhub_router/xhub_pm.h"
 #include "sensors_sysfs_als.h"

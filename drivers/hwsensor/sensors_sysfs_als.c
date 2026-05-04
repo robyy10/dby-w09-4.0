@@ -24,8 +24,8 @@
 #include "sensors_sysfs_als.h"
 #include "xhub_router/xhub_pm.h"
 #include <linux/mtd/hw_nve_interface.h>
-#include <apsensor_channel/ap_sensor_route.h>
-#include <apsensor_channel/ap_sensor.h>
+#include "apsensor_channel/ap_sensor_route.h"
+#include "apsensor_channel/ap_sensor.h"
 #include "sensors_sysfs.h"
 
 #define MAX_STR_SIZE 1024
