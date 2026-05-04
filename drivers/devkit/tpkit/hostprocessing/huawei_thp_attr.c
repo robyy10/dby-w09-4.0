@@ -25,7 +25,7 @@
 #include <linux/spi/spi.h>
 #include <linux/ctype.h>
 #include "huawei_pen_clk.h"
-#include <huawei_thp_mt_wrapper.h>
+#include "huawei_thp_mt_wrapper.h"
 #if ((defined CONFIG_FB) && (!defined CONFIG_HUAWEI_THP_QCOM) && (!defined CONFIG_HUAWEI_THP_MTK))
 #include "hisi_fb.h"
 #endif

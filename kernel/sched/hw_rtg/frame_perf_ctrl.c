@@ -16,8 +16,8 @@
  */
 
 #include <linux/uaccess.h>
-#include <include/rtg_sched.h>
-#include <include/frame.h>
+#include "include/rtg_sched.h"
+#include "include/frame.h"
 
 int perf_ctrl_set_frame_rate(void __user *uarg)
 {

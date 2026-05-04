@@ -1,3 +1,6 @@
+subdir-ccflags-y += -I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/include
+subdir-ccflags-y += -I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/common/include
+subdir-ccflags-y += -I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/adapt
 subdir-ccflags-y += -Wno-unused-but-set-variable -Wno-strict-prototypes -Wno-incompatible-pointer-types-discards-qualifiers
 subdir-ccflags-y += -I$(srctree)/techpack/display/msm/sde
 subdir-ccflags-y += -I$(srctree)/techpack/display/msm

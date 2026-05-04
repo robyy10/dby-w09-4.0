@@ -32,9 +32,9 @@
 #include <linux/fb.h>
 #include <linux/workqueue.h>
 #include <linux/regulator/consumer.h>
-#include <huawei_ts_kit.h>
-#include <huawei_ts_kit_platform.h>
-#include <huawei_ts_kit_api.h>
+#include "huawei_ts_kit.h"
+#include "huawei_ts_kit_platform.h"
+#include "huawei_ts_kit_api.h"
 #if ((defined CONFIG_FB) && (defined CONFIG_HUAWEI_DEVKIT_HISI_3_0))
 #include "hisi_fb.h"
 #endif

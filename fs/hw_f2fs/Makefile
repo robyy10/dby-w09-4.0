@@ -16,3 +16,6 @@ f2fs-$(CONFIG_F2FS_FS_POSIX_ACL) += acl.o
 f2fs-$(CONFIG_HWDPS) += hwdps_context.o
 f2fs-$(CONFIG_F2FS_TURBO_ZONE) += turbo_zone.o
 f2fs-$(CONFIG_SDP_ENCRYPTION) += sdp_context.o
+
+CFLAGS_trace.o += -I$(srctree)/fs/hw_f2fs
+CFLAGS_super.o += -I$(srctree)/fs/hw_f2fs
