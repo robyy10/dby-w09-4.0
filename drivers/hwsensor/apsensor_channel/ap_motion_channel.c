@@ -27,10 +27,10 @@
 #include <linux/miscdevice.h>
 #include <linux/uaccess.h>
 #include <linux/pm_wakeup.h>
-#include <ap_sensor.h>
-#include <ap_sensor_route.h>
-#include <ap_motion.h>
-#include <ap_motion_route.h>
+#include "ap_sensor.h"
+#include "ap_sensor_route.h"
+#include "ap_motion.h"
+#include "ap_motion_route.h"
 #include <linux/platform_device.h>
 
 #define USER_WRITE_BUFFER_SIZE            ((1) + ((2) * (sizeof(int))))

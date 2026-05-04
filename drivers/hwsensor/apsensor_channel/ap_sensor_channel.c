@@ -28,8 +28,8 @@
 #include <linux/io.h>
 #include <linux/miscdevice.h>
 #include <linux/uaccess.h>
-#include <ap_sensor.h>
-#include <ap_sensor_route.h>
+#include "ap_sensor.h"
+#include "ap_sensor_route.h"
 #include <linux/kernel.h>
 #include <linux/platform_device.h>
 #include "securec.h"

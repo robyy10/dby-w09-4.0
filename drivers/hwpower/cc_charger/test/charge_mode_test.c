@@ -31,7 +31,7 @@
 #include <chipset_common/hwpower/common_module/power_common_macro.h>
 #include <chipset_common/hwpower/adapter/adapter_detect.h>
 #include <chipset_common/hwpower/hvdcp_charge/hvdcp_charge.h>
-#include <charge_mode_test.h>
+#include "charge_mode_test.h"
 
 #define HWLOG_TAG charge_mode_tst
 HWLOG_REGIST();

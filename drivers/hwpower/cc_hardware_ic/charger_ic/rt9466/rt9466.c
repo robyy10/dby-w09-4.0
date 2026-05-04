@@ -35,7 +35,7 @@
 #include <huawei_platform/log/hw_log.h>
 #include <huawei_platform/power/huawei_charger.h>
 #include <huawei_platform/power/huawei_charger_common.h>
-#include <rt9466.h>
+#include "rt9466.h"
 #include <chipset_common/hwpower/hardware_monitor/uscp.h>
 
 #define HWLOG_TAG rt9466_charger

@@ -23,7 +23,7 @@
 #include <linux/completion.h>
 #include <linux/mutex.h>
 #include <linux/workqueue.h>
-#include <ap_sensor_route.h>
+#include "ap_sensor_route.h"
 
 #define MAX_MHB_REC_DATA_LEN   (135 * 4 + 10 * 4)
 

@@ -24,8 +24,8 @@
 #include <linux/workqueue.h>
 #include <securec.h>
 #include "smart_softtimer.h"
-#include <ap_sensor.h>
-#include <ap_sensor_route.h>
+#include "ap_sensor.h"
+#include "ap_sensor_route.h"
 
 /*lint -e750 -esym(750,*) */
 #define FLP_BATCHING        (BIT(0))

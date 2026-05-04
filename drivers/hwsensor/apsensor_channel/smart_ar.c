@@ -35,8 +35,8 @@
 #include <linux/workqueue.h>
 #include <linux/pm_wakeup.h>
 #include <net/genetlink.h>
-#include <ap_sensor.h>
-#include <ar_sensor_route.h>
+#include "ap_sensor.h"
+#include "ar_sensor_route.h"
 
 #define AR_COMPATIBLE_NAME "huawei,smart-ar"
 
