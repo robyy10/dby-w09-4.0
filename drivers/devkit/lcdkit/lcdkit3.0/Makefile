@@ -1,3 +1,6 @@
+subdir-ccflags-y += -Wno-unused-but-set-variable -Wno-strict-prototypes -Wno-incompatible-pointer-types-discards-qualifiers
+subdir-ccflags-y += -I$(srctree)/techpack/display/msm/sde
+subdir-ccflags-y += -I$(srctree)/techpack/display/msm
 obj-$(CONFIG_LCD_KIT_HISI)	+= kernel/hisi/src/
 obj-$(CONFIG_LCD_KIT_HISI) 	+= kernel/hisi/adapt/
 

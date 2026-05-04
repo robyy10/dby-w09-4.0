@@ -164,7 +164,9 @@ static void ctrl_cmd_update_socket_handler(const char *buf, size_t len,
 		if (cmpxchg_relaxed(&sbi->system_cred, NULL, system_cred))
 			put_cred(system_cred);
 		else
+#ifdef CONFIG_HMDFS_ANDROID
 			hmdfs_check_cred(sbi->user_id, system_cred);
+#endif
 	}
 	node->pending_async_p2p_try = 0;
 out:

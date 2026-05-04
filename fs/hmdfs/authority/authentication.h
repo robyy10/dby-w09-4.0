@@ -342,4 +342,24 @@ void hmdfs_check_cred(unsigned int user_id, const struct cred *cred)
 
 #endif /* CONFIG_HMDFS_ANDROID */
 
+
+#ifndef CONFIG_HMDFS_ANDROID
+static inline void hmdfs_check_cred(unsigned int user_id, const struct cred *cred)
+{
+}
+static inline const struct cred *hmdfs_override_creds(const struct cred *new)
+{
+	return override_creds(new);
+}
+static inline void hmdfs_revert_creds(const struct cred *old)
+{
+	if (old) revert_creds(old);
+}
+static inline const struct cred *hmdfs_override_fsids(struct hmdfs_sb_info *sbi, bool b)
+{
+	return NULL;
+}
+static inline void hmdfs_revert_fsids(const struct cred *old) {}
+#endif /* !CONFIG_HMDFS_ANDROID */
+
 #endif

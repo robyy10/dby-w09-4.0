@@ -33,6 +33,13 @@ void set_bootdevice_type(enum bootdevice_type type)
 {
 	bootdevice.type = type;
 }
+EXPORT_SYMBOL(set_bootdevice_type);
+
+enum bootdevice_type get_bootdevice_type(void)
+{
+	return bootdevice.type;
+}
+EXPORT_SYMBOL(get_bootdevice_type);
 
 void set_bootdevice_name(enum bootdevice_type type, struct device *dev)
 {
