@@ -1,0 +1,6 @@
+&soc {
+    pcie1: qcom,pcie@1c08000 {
+        compatible = "qcom,pci-msm";
+        status = "disabled";
+    };
+};

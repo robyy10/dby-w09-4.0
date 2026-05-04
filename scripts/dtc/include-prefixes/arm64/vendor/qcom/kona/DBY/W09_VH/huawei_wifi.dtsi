@@ -1,0 +1,5 @@
+&huawei_wifi_info{
+    compatible = "huawei,hw_wifi_info";
+    status = "ok";
+    wifi,pubfile_id = "dby_fem_5g_lx9";
+};

@@ -1,0 +1,14 @@
+config HUAWEI_DP_DSM
+	bool "huawei dp dsm driver"
+	help
+	  Enable this option to enable the dp dsm
+
+config HUAWEI_DP_SOURCE
+	bool "huawei dp source switch driver"
+	help
+	  Enable this option to enable the dp source switch
+
+config HUAWEI_DP_QCOM
+	bool "qcom platform for dp driver"
+	help
+	  Enable this option to enable the qcom platform

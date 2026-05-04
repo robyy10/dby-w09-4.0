@@ -1,0 +1,26 @@
+#
+# lcdkit qcom driver configuration
+#
+menuconfig LCD_KIT_QCOM
+	bool "lcd kit 3.0 qcom driver"
+	default n
+	help
+	   If you say yes here you get support for lcd kit qcom driver.
+
+#
+# lcdkit hybrid driver configuration
+#
+menuconfig LCD_KIT_HYBRID
+	bool "lcd kit 3.0 hybrid driver"
+	default n
+	help
+	   If you say yes here you get support for lcd kit hybrid driver.
+
+#
+# lcdkit crop driver configuration
+#
+menuconfig LCD_KIT_CROP
+	bool "lcd kit 3.0 crop driver"
+	default n
+	help
+	   If you say yes here you get support for lcd kit crop driver.

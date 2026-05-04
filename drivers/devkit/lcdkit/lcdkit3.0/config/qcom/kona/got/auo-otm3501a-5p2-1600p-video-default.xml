@@ -1,0 +1,124 @@
+<hwlcd>
+	<PanelEntry>
+		<!--Panel type:dsi_video_mode-video mode, dsi_cmd_mode-command mode-->
+		<PanelTypeMode>"dsi_video_mode"</PanelTypeMode>
+		<PanelModeSwitch>0</PanelModeSwitch>
+
+		<!--Dsi ctrl number:1-one dsi ctrl, 2-two dsi ctrl-->
+		<DsiCtrlNum>0</DsiCtrlNum>
+		<!--Dsi phy number:1-one dsi phy, 2-two dsi phy-->
+		<DsiPhyNum>0</DsiPhyNum>
+
+		<!-- Lane Config -->
+		<PanelDSILaneMap>"lane_map_0123"</PanelDSILaneMap>
+		<PanelLane0State>1</PanelLane0State>
+		<PanelLane1State>1</PanelLane1State>
+		<PanelLane2State>1</PanelLane2State>
+		<PanelLane3State>1</PanelLane3State>
+
+		<!-- MIPI Host Config -->
+		<DsiSelectClocks>"mux_byte_clk0", "mux_pixel_clk0"</DsiSelectClocks>
+
+		<!-- Display dsi timming config -->
+		<DisplayDsiTimmingBegin>1</DisplayDsiTimmingBegin>
+		<DisplayDsiTimming0Begin>1</DisplayDsiTimming0Begin>
+		<DisplayDsiTimming0End>1</DisplayDsiTimming0End>
+		<DisplayDsiTimmingEnd>1</DisplayDsiTimmingEnd>
+
+		<!-- Display dsi timming0 config -->
+		<PanelXres0>2560</PanelXres0>
+		<PanelYres0>1600</PanelYres0>
+		<HFrontPorch0>192</HFrontPorch0>
+		<HBackPorch0>128</HBackPorch0>
+		<HPulseWidth0>4</HPulseWidth0>
+		<VFrontPorch0>23</VFrontPorch0>
+		<VBackPorch0>8</VBackPorch0>
+		<VPulseWidth0>1</VPulseWidth0>
+		<HSyncSkew0>0</HSyncSkew0>
+		<PanelFrameRate0>60</PanelFrameRate0>
+		<PanelPhyTimings0>"00 2A 0B 0B 1C 26 0B
+			0C 0C 0B 02 04 23 10"</PanelPhyTimings0>
+		<DisplayTopology0>1 0 1</DisplayTopology0>
+		<DefaultTopologyIndex0>0</DefaultTopologyIndex0>
+		<!-- Backlight ctrl config -->
+		<BlPmicControlType>"bl_ctrl_external"</BlPmicControlType>
+		<MdssDsiBlMinLevel>1</MdssDsiBlMinLevel>
+		<MdssDsiBlMaxLevel>4095</MdssDsiBlMaxLevel>
+		<DsiPanelCphyMode>0</DsiPanelCphyMode>
+
+		<!--Project id support-->
+		<PanelProjectIdSupport>0</PanelProjectIdSupport>
+		<!--Tp Project Id-->
+		<PanelDefaultTpProjectId>"G240A7130"</PanelDefaultTpProjectId>
+
+		<!--OemInfo support-->
+		<OemInfoSupport>0</OemInfoSupport>
+		<!--OemBarcode2DSupport support-->
+		<OemBarcode2DSupport>0</OemBarcode2DSupport>
+		<!--OemBarcode2DNumOffset-->
+		<OemBarcode2DNumOffset>0</OemBarcode2DNumOffset>
+		<!--sn code support-->
+		<PanelSnCodeSupport>0</PanelSnCodeSupport>
+
+		<!--bl min brightness setting-->
+		<PanelBlmin>4</PanelBlmin>
+		<!--bl max brightness setting-->
+		<PanelBlmax>4095</PanelBlmax>
+		<!--Running test config start-->
+		<!--Dot/column inversion test support-->
+		<PanelInversionSupport>0</PanelInversionSupport>
+		<!--Check panel power status test support-->
+		<FactoryCheckRegSupport>0</FactoryCheckRegSupport>
+		<!--Pt station test support-->
+		<PanelPtTestSupport>0</PanelPtTestSupport>
+		<!--gpio offset number setting-->
+		<PanelGpioOffset>1100</PanelGpioOffset>
+		<!--Thp Proximity support-->
+		<PanelThpProximitySupport>0</PanelThpProximitySupport>
+		<ThpProximityResetDelayMin>65</ThpProximityResetDelayMin>
+		<!--PanelOnAlwaysNeedReset-->
+		<PanelOnAlwaysNeedReset>0</PanelOnAlwaysNeedReset>
+		<!--event send
+		event, data, delay
+		event:0-NONE, 1-VCI, 2-IOVCC, 3-VSP, 4-VSN, 5-RESET, 6-MIPI, 7-TS early event, 8-TS later event, 9-vdd 10-AOD, 11-BIAS
+		data:0-power off, 1-power on
+		delay:ms/TS:0-no-sync 1-sync
+		-->
+		<!--Power on timming-->
+		<PowerOnStage>"2, 1, 5
+				5, 1, 20
+				5, 0, 20
+				5, 1, 100
+				7, 1, 65"</PowerOnStage>
+		<LPOnStage>"6, 1, 0
+				8, 1, 0"</LPOnStage>
+		<LPOffStage>"7, 0, 0
+				8, 0, 1"</LPOffStage>
+		<PowerOffStage>"6, 0, 0
+				5, 0, 2
+				2, 0, 110"</PowerOffStage>
+		<OnlyPowerOffStage>"0, 0, 0"</OnlyPowerOffStage>
+		<!--Power timming config end-->
+		<!--Tp color support-->
+		<TpColorSupport>0</TpColorSupport>
+		<!--Backlight max nit-->
+		<!--Power timming config start-->
+		<!--event define
+		when mode is regulate to set min voltage, max voltage, enable load, disable load
+		mode, number, amplitude, min voltage, max voltage, enable load, disable load
+		mode:0-none, 1-regulator, 2-gpio
+		number:gpio num or ldo num
+		amplitude:3100000-3.1v, 1850000-1.85v, 5500000-5.5v
+		min voltage:1850000-1.85v
+		max voltage:5500000-5.5v
+		enable load:62000
+		disable load:80
+		-->
+		<LcdIovcc>"2, 154, 0"</LcdIovcc>
+		<LcdReset>"2, 12, 0"</LcdReset>
+		<!--IOVCC regulator name-->
+		<IovccName>"vddio"</IovccName>
+		<PanelType>0x02</PanelType>
+		<PowerIcDetectSupport>0</PowerIcDetectSupport>
+	</PanelEntry>
+</hwlcd>

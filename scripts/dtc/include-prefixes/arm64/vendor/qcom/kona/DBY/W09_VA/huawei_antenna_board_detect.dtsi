@@ -1,0 +1,40 @@
+&tlmm {
+
+	ant_boardid_gpio_det_default:ant_boardid_gpio_det_default {
+			mux {
+				pins = "gpio69";
+				function =  "gpio";
+			};
+			config {
+				pins = "gpio69";
+				num-grp-pins = <1>;
+				drive-strength = <2>;
+				bias-disable;
+			};
+	};
+
+	ant_boardid_gpio_det_idle:ant_boardid_gpio_det_idle {
+			mux {
+				pins = "gpio69";
+				function =  "gpio";
+			};
+			config {
+				pins = "gpio69";
+				num-grp-pins = <1>;
+				drive-strength = <2>;
+				bias-disable;
+			};
+	};
+
+};
+
+&antenna_board_detect {
+	compatible = "huawei,antenna_board_detect";
+	pinctrl-names = "default", "idle";
+	pinctrl-0 = <&ant_boardid_gpio_det_default>;
+	pinctrl-1 = <&ant_boardid_gpio_det_idle>;
+	gpio_count = <1>;
+	board_version = <0>;
+	gpios = <&tlmm 69 0>;
+	status = "okay";
+};

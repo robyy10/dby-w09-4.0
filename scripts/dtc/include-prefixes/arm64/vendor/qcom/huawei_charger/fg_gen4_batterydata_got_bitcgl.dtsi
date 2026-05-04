@@ -1,0 +1,142 @@
+
+qcom,fg_gen4_batterydata_got_bitcgl.dtsi {
+    qcom,profile-revision = <24>;
+    /* #5759905_Huawei_BT243-S_8200mAH_averaged_MasterSlave_Mar17th2022*/
+    qcom,max-voltage-uv = <4480000>;
+    qcom,fg-cc-cv-threshold-mv = <4470>;
+    qcom,fastchg-current-ma = <5325>;
+    qcom,nom-batt-capacity-mah = <8200>;
+    qcom,batt-id-kohm = <100>;
+    /* COLD = 0 DegC, HOT = 45 DegC */
+    qcom,jeita-hard-thresholds = <0x3733 0xEB1>;
+    /* COOL = 10 DegC, WARM = 40 DegC */
+    qcom,jeita-soft-thresholds = <0x2AEE 0x114E>;
+    /* COOL hys = 13 DegC, WARM hys = 42 DegC */
+    qcom,jeita-soft-hys-thresholds = <0x28DA 0x1134>;
+    qcom,jeita-fcc-ranges = <0    50   715000
+                             51   100  2145000
+                             101  450  5000000
+                             451  600  2500000>;
+    qcom,jeita-fv-ranges = <0   50   4480000
+                            51  100  4480000
+                            101 450  4480000
+                            451 600  4100000>;
+    qcom,jeita-soft-fcc-ua = <2145000 2500000>;
+    qcom,jeita-soft-fv-uv = <4480000 4100000>;
+    qcom,battery-beta = <3800>;
+    qcom,therm-room-temp = <10000>;
+    qcom,battery-type = "BITCGL_8200_4480_v0";
+    qcom,therm-coefficients = <0x2302 0x15ad 0xf387 0xddd1 0x8bae>;
+    qcom,therm-center-offset = <0x38>;
+    qcom,therm-pull-up = <30>;
+    qcom,rslow-normal-coeffs = <0x9e 0xdd 0x97 0x13>;
+    qcom,rslow-low-coeffs = <0xbf 0x15 0x8b 0x0a>;
+    qcom,checksum = <0x2303>;
+    qcom,gui-version = "PM855GUI - 1.0.0.14";
+    qcom,fg-profile-data = [
+         09 00 01 E2
+         F9 D5 83 DA
+         74 D4 00 00
+         38 B5 68 82
+         FF 87 3E 81
+         CD 83 DA 87
+         15 00 B7 05
+         22 13 29 FD
+         E8 D5 CE 07
+         32 00 68 E3
+         CD E4 77 E3
+         A5 0A CA DB
+         51 B4 0C 2A
+         3F 0A DA CB
+         60 00 41 00
+         42 00 36 00
+         2D 00 2D 00
+         3B 00 40 00
+         41 00 4A 00
+         46 00 60 00
+         3D 00 37 00
+         47 00 3B 00
+         39 00 7B 00
+         4E 64 45 00
+         4A 08 6F 10
+         60 08 47 00
+         47 F8 57 00
+         54 00 4E 00
+         88 20 5E 40
+         52 50 4D 11
+         52 00 D8 08
+         85 23 8A 14
+         25 0B 36 FD
+         07 1D 69 03
+         48 05 72 23
+         AB 18 19 3B
+         42 55 56 03
+         90 13 0E 23
+         B4 0C 09 13
+         50 0D FE 1C
+         07 03 AB 05
+         3B 03 16 19
+         81 22 09 44
+         2A 52 8F 13
+         E1 23 5F DC
+         35 BB 33 C5
+         F0 1C 64 C9
+         6F 06 5D B2
+         90 18 C8 82
+         C9 85 6C 92
+         9A 98 09 80
+         BB 03 20 05
+         B6 05 04 FA
+         00 F8 49 DD
+         21 E3 FC 07
+         6E EA 62 CC
+         4B 20 13 08
+         38 EE 8E 03
+         A0 05 75 02
+         CE 07 32 00
+         27 03 A3 05
+         B5 05 ED 03
+         9C 04 BF 02
+         4F 02 F8 02
+         4B 05 4B 00
+         3F 00 41 00
+         42 64 42 00
+         45 00 3B 08
+         3C 00 43 00
+         42 00 38 08
+         41 08 3D 00
+         49 28 49 50
+         4B 70 5C 07
+         3E 00 41 08
+         4A 10 45 08
+         32 00 43 00
+         4B 08 58 10
+         51 00 64 20
+         7C 40 4B 58
+         59 0E 51 00
+         3F 08 21 10
+         D8 08 4F 20
+         F4 FC 4E 03
+         3F 05 4C 1D
+         4F 22 F5 44
+         A4 53 C2 18
+         B5 03 1F 04
+         C2 02 6C 11
+         3F 0A 0E 21
+         D2 05 48 02
+         F5 05 DD 1C
+         E4 02 32 04
+         32 02 C0 18
+         96 03 37 04
+         C5 02 6F 00
+         85 23 8A 04
+         25 03 36 05
+         07 1D 69 03
+         48 05 72 03
+         AB 18 19 03
+         42 05 56 03
+         90 00 96 00
+         C0 00 FA 00
+         4B 21 00 00
+    ];
+};

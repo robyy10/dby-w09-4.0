@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# huawei boost drivers
+#
+
+config BOOST_SC8933
+	bool "boost sc8933"
+	default n
+	help
+	  Say Y here to enable boost sc8933 driver.

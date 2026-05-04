@@ -1,0 +1,1244 @@
+&tlmm {
+	smartpakit_irq_pins: smartpakit_irq_pins {
+		smartpakit_irq_default: smartpakit_irq_default {
+			mux {
+				pins = "gpio112", "gpio126", "gpio158", "gpio110", "gpio15", "gpio83";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio112", "gpio126", "gpio158", "gpio110", "gpio15", "gpio83";
+				bias-pull-up;
+				input-enable;
+			};
+		};
+	};
+
+	box_id_default: box_id_default {
+		mux {
+			pins = "gpio22", "gpio125", "gpio162", "gpio114", "gpio127", "gpio62";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio22", "gpio125", "gpio162", "gpio114", "gpio127", "gpio62";
+			bias-pull-up;
+			drive-strength = <2>;   /* 2 MA */
+		};
+	};
+
+	box_id_sleep: box_id_sleep {
+		mux {
+			pins = "gpio22", "gpio125", "gpio162", "gpio114", "gpio127", "gpio62";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio22", "gpio125", "gpio162", "gpio114", "gpio127", "gpio62";
+			bias-pull-down;
+			drive-strength = <2>;   /* 2 MA */
+		};
+	};
+};
+
+&pri_mi2s_sck_active {
+	mux {
+		pins = "gpio138";
+		function = "mi2s0_sck";
+	};
+
+	config {
+		pins = "gpio138";
+		drive-strength = <16>;   /* 8 mA */
+		bias-disable;           /* NO PULL */
+		output-high;
+	};
+};
+
+&pri_mi2s_sd0_active {
+	mux {
+		pins = "gpio139";
+		function = "mi2s0_data0";
+	};
+
+	config {
+		pins = "gpio139";
+		drive-strength = <16>;   /* 8 mA */
+		bias-disable;           /* NO PULL */
+		output-high;
+	};
+};
+
+&pri_mi2s_sd1_active {
+	mux {
+		pins = "gpio140";
+		function = "mi2s0_data1";
+	};
+
+	config {
+		pins = "gpio140";
+		drive-strength = <16>;   /* 8 mA */
+		bias-disable;           /* NO PULL */
+		output-high;
+	};
+};
+
+&pri_mi2s_ws_active {
+	mux {
+		pins = "gpio141";
+		function = "mi2s0_ws";
+	};
+
+	config {
+		pins = "gpio141";
+		drive-strength = <16>;   /* 8 mA */
+		bias-disable;           /* NO PULL */
+		output-high;
+	};
+};
+
+&huawei_audio_info {
+	compatible = "hw,hw_audio_info";
+	product_identifier = "GOT";
+	voice_vol_level = "10";
+	pa_identifier = "smartpakit";
+	smartpa_num = "6";
+	speaker_test_content = "leftspeaker,rightspeaker,subleftspeaker,subrightspeaker,trileftspeaker,trirightspeaker";
+	mic_test_content = "mainmic,mainmic2,submic,submic2";
+	status = "ok";
+    record_algo_compatible = "true";
+	hardware_info {
+		mic_num = "4";
+		direct_devices = "0x2000000c";
+		multi_mic_enable = "true";
+		backmic_record_enable = "true";
+		voip_ap_algo_enable = "true";
+		voip_scene_support = "true";
+		get_ec_in_hal = "true";
+		voip_use_multi_mic = "true";
+		status = "ok";
+		hostless_id_info {
+			hostless_id_reset = "true";
+			spk_rx_hostless_id = "41";
+			hsmic_tx_hostless_id = "40";
+		};
+	};
+
+	audio_capability {
+		ultrasonic_trans_enable = "true";
+	};
+
+	audio_channel_rotation_info {
+		angle="270";
+		rotation_support= "true";
+	};
+};
+
+&qupv3_se11_i2c {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "ok";
+
+	smartpa@34 {
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x34>;
+		pa_num_by_same_i2c_addr = <2>;
+		status = "ok";
+
+		smartpa0 {
+			/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+			chip_vendor = <4>;
+			/* refer to smartpakit.out_device prop */
+			chip_id = <5>;
+			chip_model = "01-02";
+
+			/* reg_ctl node: a node contains three data<addr value ctl_type>
+			* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			* value:
+			*     read:  reg number(num >= 1)
+			*     write: reg value
+			*     delay: time delay
+			* time delay unit: msecs */
+			version_regs = <0x03 1 0>;
+			version_val = <0x3 0xc74 0xffff>;
+			dump_regs = <0 256 0>;
+			hw_reset {
+				skip_repeate_ops_in_probe;
+				gpio_reset = <&tlmm 109 0>; // GPIO_109
+				/* gpio_state node: a node contains two data<state delay>
+				* time delay unit: msecs */
+				ctl_sequence = <1 1 0 1>;
+			};
+			irq_handler {
+				gpio_irq = <&tlmm 83 0>; // GPIO_083
+				/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+				irq_flags = <2>;
+				/* whether or not need reset chip*/
+				need_reset;
+				rw_sequence = <
+					0x10 1 0
+					0x11 1 0
+					0x13 1 0
+					0x14 1 0
+					0x40 1 0
+					0x41 1 0
+					0x42 1 0
+				>;
+			};
+
+			regmap_cfg {
+				reg_bits = <8>;
+				val_bits = <16>;
+				/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+				cache_type = <0>;
+				max_register = <0xff>;
+				reg_defaults = <
+					0x00 0x1801
+					0x01 0x0014
+				>;
+			};
+		};
+
+		smartpa1 {
+			/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+			chip_vendor = <4>;
+			/* refer to smartpakit.out_device prop */
+			chip_id = <5>;
+			chip_model = "06-02";
+			status = "ok";
+
+			/* reg_ctl node: a node contains three data<addr value ctl_type>
+			 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			 * value:
+			 *     read:  reg number(num >= 1)
+			 *     write: reg value
+			 *     delay: time delay
+			 * time delay unit: msecs */
+			version_regs = <0x00 0x1 0>;
+			version_val = <0x0 0x2113 0xffff>;
+			dump_regs = <0 256 0>;
+			irq_handler {
+				gpio_irq = <&tlmm 83 0>; // GPIO_083
+				/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+				irq_flags = <2>;
+				/* whether or not need reset chip*/
+				need_reset;
+				rw_sequence = <
+					0x1 1 0
+					0x2 1 0
+					0x3 1 0
+					>;
+			};
+			regmap_cfg {
+				reg_bits = <8>;
+				val_bits = <16>;
+				/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+				cache_type = <0>;
+				max_register = <0xff>;
+			};
+		};
+	};
+
+	smartpa@35 {
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x35>;
+		pa_num_by_same_i2c_addr = <2>;
+		status = "ok";
+
+		smartpa0 {
+			/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+			chip_vendor = <4>;
+			/* refer to smartpakit.out_device prop */
+			chip_id = <4>;
+			chip_model = "01-02";
+
+			/* reg_ctl node: a node contains three data<addr value ctl_type>
+			* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			* value:
+			*     read:  reg number(num >= 1)
+			*     write: reg value
+			*     delay: time delay
+			* time delay unit: msecs */
+			version_regs = <0x03 1 0>;
+			version_val = <0x3 0xc74 0xffff>;
+			dump_regs = <0 256 0>;
+			hw_reset {
+				skip_repeate_ops_in_probe;
+				gpio_reset = <&tlmm 109 0>; // GPIO_109
+				/* gpio_state node: a node contains two data<state delay>
+				* time delay unit: msecs */
+				ctl_sequence = <1 1 0 1>;
+			};
+			irq_handler {
+				gpio_irq = <&tlmm 15 0>; // GPIO_015
+				/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+				irq_flags = <2>;
+				/* whether or not need reset chip*/
+				need_reset;
+				rw_sequence = <
+					0x10 1 0
+					0x11 1 0
+					0x13 1 0
+					0x14 1 0
+					0x40 1 0
+					0x41 1 0
+					0x42 1 0
+				>;
+			};
+
+			regmap_cfg {
+				reg_bits = <8>;
+				val_bits = <16>;
+				/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+				cache_type = <0>;
+				max_register = <0xff>;
+				reg_defaults = <
+					0x00 0x1801
+					0x01 0x0014
+				>;
+			};
+		};
+
+		smartpa1 {
+			/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+			chip_vendor = <4>;
+			/* refer to smartpakit.out_device prop */
+			chip_id = <4>;
+			chip_model = "06-02";
+			status = "ok";
+
+			/* reg_ctl node: a node contains three data<addr value ctl_type>
+			 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			 * value:
+			 *     read:  reg number(num >= 1)
+			 *     write: reg value
+			 *     delay: time delay
+			 * time delay unit: msecs */
+			version_regs = <0x00 0x1 0>;
+			version_val = <0x0 0x2113 0xffff>;
+			dump_regs = <0 256 0>;
+			irq_handler {
+				gpio_irq = <&tlmm 15 0>; // GPIO_015
+				/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+				irq_flags = <2>;
+				/* whether or not need reset chip*/
+				need_reset;
+				rw_sequence = <
+					0x1 1 0
+					0x2 1 0
+					0x3 1 0
+					>;
+			};
+			regmap_cfg {
+				reg_bits = <8>;
+				val_bits = <16>;
+				/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+				cache_type = <0>;
+				max_register = <0xff>;
+			};
+		};
+	};
+
+	smartpa@5C{
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x5C>;
+		/* 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <5>;
+		chip_model = "05-01";
+		reset_debounce_wait_time = <100>;
+		status = "ok";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+		 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+		 * value:
+		 *     read:  reg number(num >= 1)
+		 *     write: reg value
+		 *     delay: time delay
+		 * time delay unit: msecs */
+		version_regs = <0x03 1 0>;
+		dump_regs = <0 256 0>;
+		hw_reset {
+			skip_repeate_ops_in_probe;
+			gpio_reset = <&tlmm 109 0>; // GPIO_109
+			/* gpio_state node: a node contains two data<state delay>
+			 * time delay unit: msecs */
+			ctl_sequence = <0 1 1 1>;
+		};
+		irq_handler {
+			gpio_irq = <&tlmm 83 0>; // GPIO_083
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW */
+			irq_flags = <2>;
+			/* whether or not need reset chip */
+			need_reset;
+			rw_sequence = <
+				0x01 1 0
+				0x05 1 0
+				0x09 1 0
+				0x03 6 1 // mute chip
+			>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+		};
+	};
+
+	smartpa@5D{
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x5D>;
+		/* 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <4>;
+		chip_model = "05-01";
+		reset_debounce_wait_time = <100>;
+		status = "ok";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+		 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+		 * value:
+		 *     read:  reg number(num >= 1)
+		 *     write: reg value
+		 *     delay: time delay
+		 * time delay unit: msecs */
+		version_regs = <0x03 1 0>;
+		dump_regs = <0 256 0>;
+		hw_reset {
+			skip_repeate_ops_in_probe;
+			gpio_reset = <&tlmm 109 0>; // GPIO_109
+			/* gpio_state node: a node contains two data<state delay>
+			 * time delay unit: msecs */
+			ctl_sequence = <0 1 1 1>;
+		};
+		irq_handler {
+			gpio_irq = <&tlmm 15 0>; // GPIO_015
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW */
+			irq_flags = <2>;
+			/* whether or not need reset chip */
+			need_reset;
+			rw_sequence = <
+				0x01 1 0
+				0x05 1 0
+				0x09 1 0
+				0x03 6 1 // mute chip
+			>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+		};
+	};
+};
+
+&qupv3_se3_i2c {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "ok";
+
+	smartpa@34 {
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x34>;
+		pa_num_by_same_i2c_addr = <2>;
+		status = "ok";
+
+		smartpa0 {
+			/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+			chip_vendor = <4>;
+			/* refer to smartpakit.out_device prop */
+			chip_id = <1>;
+			chip_model = "01-02";
+
+			/* reg_ctl node: a node contains three data<addr value ctl_type>
+			* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			* value:
+			*     read:  reg number(num >= 1)
+			*     write: reg value
+			*     delay: time delay
+			* time delay unit: msecs */
+			version_regs = <0x03 1 0>;
+			version_val = <0x3 0xc74 0xffff>;
+			dump_regs = <0 256 0>;
+			hw_reset {
+				skip_repeate_ops_in_probe;
+				gpio_reset = <&tlmm 109 0>; // GPIO_109
+				/* gpio_state node: a node contains two data<state delay>
+				* time delay unit: msecs */
+				ctl_sequence = <1 1 0 1>;
+			};
+			irq_handler {
+				gpio_irq = <&tlmm 126 0>; // GPIO_126
+				/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+				irq_flags = <2>;
+				/* whether or not need reset chip*/
+				need_reset;
+				rw_sequence = <
+					0x10 1 0
+					0x11 1 0
+					0x13 1 0
+					0x14 1 0
+					0x40 1 0
+					0x41 1 0
+					0x42 1 0
+				>;
+			};
+
+			regmap_cfg {
+				reg_bits = <8>;
+				val_bits = <16>;
+				/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+				cache_type = <0>;
+				max_register = <0xff>;
+				reg_defaults = <
+					0x00 0x1801
+					0x01 0x0014
+				>;
+			};
+		};
+
+		smartpa1 {
+			/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+			chip_vendor = <4>;
+			/* refer to smartpakit.out_device prop */
+			chip_id = <1>;
+			chip_model = "06-02";
+			status = "ok";
+
+			/* reg_ctl node: a node contains three data<addr value ctl_type>
+			 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			 * value:
+			 *     read:  reg number(num >= 1)
+			 *     write: reg value
+			 *     delay: time delay
+			 * time delay unit: msecs */
+			version_regs = <0x00 0x1 0>;
+			version_val = <0x0 0x2113 0xffff>;
+			dump_regs = <0 256 0>;
+			irq_handler {
+				gpio_irq = <&tlmm 126 0>; // GPIO_126
+				/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+				irq_flags = <2>;
+				/* whether or not need reset chip*/
+				need_reset;
+				rw_sequence = <
+					0x1 1 0
+					0x2 1 0
+					0x3 1 0
+					>;
+			};
+			regmap_cfg {
+				reg_bits = <8>;
+				val_bits = <16>;
+				/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+				cache_type = <0>;
+				max_register = <0xff>;
+			};
+		};
+	};
+
+	smartpa@5C{
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x5C>;
+		/* 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <1>;
+		chip_model = "05-01";
+		reset_debounce_wait_time = <100>;
+		status = "ok";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+		 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+		 * value:
+		 *     read:  reg number(num >= 1)
+		 *     write: reg value
+		 *     delay: time delay
+		 * time delay unit: msecs */
+		version_regs = <0x03 1 0>;
+		dump_regs = <0 256 0>;
+		hw_reset {
+			gpio_reset = <&tlmm 109 0>; // GPIO_109
+			/* gpio_state node: a node contains two data<state delay>
+			 * time delay unit: msecs */
+			ctl_sequence = <0 1 1 1>;
+		};
+		irq_handler {
+			skip_repeate_ops_in_probe;
+			gpio_irq = <&tlmm 126 0>; // GPIO_126
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW */
+			irq_flags = <2>;
+			/* whether or not need reset chip */
+			need_reset;
+			rw_sequence = <
+				0x01 1 0
+				0x05 1 0
+				0x09 1 0
+				0x03 6 1 // mute chip
+			>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+		};
+	};
+
+	smartpa@35 {
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x35>;
+		pa_num_by_same_i2c_addr = <2>;
+		status = "ok";
+
+		smartpa0 {
+			/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+			chip_vendor = <4>;
+			/* refer to smartpakit.out_device prop */
+			chip_id = <3>;
+			chip_model = "01-02";
+
+			/* reg_ctl node: a node contains three data<addr value ctl_type>
+			* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			* value:
+			*     read:  reg number(num >= 1)
+			*     write: reg value
+			*     delay: time delay
+			* time delay unit: msecs */
+			version_regs = <0x03 1 0>;
+			version_val = <0x3 0xc74 0xffff>;
+			dump_regs = <0 256 0>;
+			hw_reset {
+				skip_repeate_ops_in_probe;
+				gpio_reset = <&tlmm 109 0>; // GPIO_109
+				/* gpio_state node: a node contains two data<state delay>
+				* time delay unit: msecs */
+				ctl_sequence = <1 1 0 1>;
+			};
+			irq_handler {
+				gpio_irq = <&tlmm 110 0>; // GPIO_110
+				/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+				irq_flags = <2>;
+				/* whether or not need reset chip*/
+				need_reset;
+				rw_sequence = <
+					0x10 1 0
+					0x11 1 0
+					0x13 1 0
+					0x14 1 0
+					0x40 1 0
+					0x41 1 0
+					0x42 1 0
+				>;
+			};
+
+			regmap_cfg {
+				reg_bits = <8>;
+				val_bits = <16>;
+				/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+				cache_type = <0>;
+				max_register = <0xff>;
+				reg_defaults = <
+					0x00 0x1801
+					0x01 0x0014
+				>;
+			};
+		};
+
+		smartpa1 {
+			/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+			chip_vendor = <4>;
+			/* refer to smartpakit.out_device prop */
+			chip_id = <3>;
+			chip_model = "06-02";
+			status = "ok";
+
+			/* reg_ctl node: a node contains three data<addr value ctl_type>
+			 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			 * value:
+			 *     read:  reg number(num >= 1)
+			 *     write: reg value
+			 *     delay: time delay
+			 * time delay unit: msecs */
+			version_regs = <0x00 0x1 0>;
+			version_val = <0x0 0x2113 0xffff>;
+			dump_regs = <0 256 0>;
+			irq_handler {
+				gpio_irq = <&tlmm 110 0>; // GPIO_110
+				/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+				irq_flags = <2>;
+				/* whether or not need reset chip*/
+				need_reset;
+				rw_sequence = <
+					0x1 1 0
+					0x2 1 0
+					0x3 1 0
+					>;
+			};
+			regmap_cfg {
+				reg_bits = <8>;
+				val_bits = <16>;
+				/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+				cache_type = <0>;
+				max_register = <0xff>;
+			};
+		};
+	};
+
+	smartpa@5D{
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x5D>;
+		/* 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <3>;
+		chip_model = "05-01";
+		reset_debounce_wait_time = <100>;
+		status = "ok";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+		 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+		 * value:
+		 *     read:  reg number(num >= 1)
+		 *     write: reg value
+		 *     delay: time delay
+		 * time delay unit: msecs */
+		version_regs = <0x03 1 0>;
+		dump_regs = <0 256 0>;
+		hw_reset {
+			skip_repeate_ops_in_probe;
+			gpio_reset = <&tlmm 109 0>; // GPIO_109
+			/* gpio_state node: a node contains two data<state delay>
+			 * time delay unit: msecs */
+			ctl_sequence = <0 1 1 1>;
+		};
+		irq_handler {
+			gpio_irq = <&tlmm 110 0>; // GPIO_110
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW */
+			irq_flags = <2>;
+			/* whether or not need reset chip */
+			need_reset;
+			rw_sequence = <
+				0x01 1 0
+				0x05 1 0
+				0x09 1 0
+				0x03 6 1 // mute chip
+			>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+		};
+	};
+};
+
+&qupv3_se2_i2c {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "ok";
+
+	smartpa@36 {
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x36>;
+		status = "ok";
+
+		/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <0>;
+		chip_model = "01-02";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+		* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+		* value:
+		*     read:  reg number(num >= 1)
+		*     write: reg value
+		*     delay: time delay
+		* time delay unit: msecs */
+		version_regs = <0x03 1 0>;
+		dump_regs = <0 256 0>;
+		hw_reset {
+			skip_repeate_ops_in_probe;
+			gpio_reset = <&tlmm 109 0>; // GPIO_109
+			/* gpio_state node: a node contains two data<state delay>
+			* time delay unit: msecs */
+			ctl_sequence = <1 1 0 1>;
+		};
+		irq_handler {
+			gpio_irq = <&tlmm 112 0>; // GPIO_112
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+			irq_flags = <2>;
+			/* whether or not need reset chip*/
+			need_reset;
+			rw_sequence = <
+				0x10 1 0
+				0x11 1 0
+				0x13 1 0
+				0x14 1 0
+				0x40 1 0
+				0x41 1 0
+				0x42 1 0
+			>;
+		};
+
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+			reg_defaults = <
+				0x00 0x1801
+				0x01 0x0014
+			>;
+		};
+	};
+
+	smartpa@34 {
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x34>;
+		status = "ok";
+		/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <0>;
+		chip_model = "06-02";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+			* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			* value:
+			*     read:  reg number(num >= 1)
+			*     write: reg value
+			*     delay: time delay
+			* time delay unit: msecs */
+		version_regs = <0x00 0x1 0>;
+		dump_regs = <0 256 0>;
+		irq_handler {
+			gpio_irq = <&tlmm 112 0>; // GPIO_112
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+			irq_flags = <2>;
+			/* whether or not need reset chip*/
+			need_reset;
+			rw_sequence = <
+				0x1 1 0
+				0x2 1 0
+				0x3 1 0
+				>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+		};
+	};
+
+	smartpa@5E{
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x5E>;
+		/* 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <0>;
+		chip_model = "05-01";
+		reset_debounce_wait_time = <100>;
+		status = "ok";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+		 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+		 * value:
+		 *     read:  reg number(num >= 1)
+		 *     write: reg value
+		 *     delay: time delay
+		 * time delay unit: msecs */
+		version_regs = <0x03 1 0>;
+		dump_regs = <0 256 0>;
+		hw_reset {
+			skip_repeate_ops_in_probe;
+			gpio_reset = <&tlmm 109 0>; // GPIO_109
+			/* gpio_state node: a node contains two data<state delay>
+			 * time delay unit: msecs */
+			ctl_sequence = <0 1 1 1>;
+		};
+		irq_handler {
+			gpio_irq = <&tlmm 112 0>; // GPIO_112
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW */
+			irq_flags = <2>;
+			/* whether or not need reset chip */
+			need_reset;
+			rw_sequence = <
+				0x01 1 0
+				0x05 1 0
+				0x09 1 0
+				0x03 6 1 // mute chip
+			>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+		};
+	};
+
+	smartpa@37 {
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x37>;
+		status = "ok";
+		/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <2>;
+		chip_model = "01-02";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+		* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+		* value:
+		*     read:  reg number(num >= 1)
+		*     write: reg value
+		*     delay: time delay
+		* time delay unit: msecs */
+		version_regs = <0x03 1 0>;
+		dump_regs = <0 256 0>;
+		hw_reset {
+			skip_repeate_ops_in_probe;
+			gpio_reset = <&tlmm 109 0>; // GPIO_109
+			/* gpio_state node: a node contains two data<state delay>
+			* time delay unit: msecs */
+			ctl_sequence = <1 1 0 1>;
+		};
+		irq_handler {
+			gpio_irq = <&tlmm 158 0>; // GPIO_158
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+			irq_flags = <2>;
+			/* whether or not need reset chip*/
+			need_reset;
+			rw_sequence = <
+				0x10 1 0
+				0x11 1 0
+				0x13 1 0
+				0x14 1 0
+				0x40 1 0
+				0x41 1 0
+				0x42 1 0
+			>;
+		};
+
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+			reg_defaults = <
+				0x00 0x1801
+				0x01 0x0014
+			>;
+		};
+	};
+
+	smartpa@35 {
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x35>;
+		status = "ok";
+		/* 0 MAXIM, 1 NXP, 2 TI, 3 OTHER, 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <2>;
+		chip_model = "06-02";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+			* ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+			* value:
+			*     read:  reg number(num >= 1)
+			*     write: reg value
+			*     delay: time delay
+			* time delay unit: msecs */
+		version_regs = <0x00 0x1 0>;
+		dump_regs = <0 256 0>;
+		irq_handler {
+			gpio_irq = <&tlmm 158 0>; // GPIO_158
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW*/
+			irq_flags = <2>;
+			/* whether or not need reset chip*/
+			need_reset;
+			rw_sequence = <
+				0x1 1 0
+				0x2 1 0
+				0x3 1 0
+				>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+		};
+	};
+
+	smartpa@5F{
+		compatible = "huawei,smartpakit_i2c";
+		reg = <0x5F>;
+		/* 4:huawei customize */
+		chip_vendor = <4>;
+		/* refer to smartpakit.out_device prop */
+		chip_id = <2>;
+		chip_model = "05-01";
+		reset_debounce_wait_time = <100>;
+		status = "ok";
+
+		/* reg_ctl node: a node contains three data<addr value ctl_type>
+		 * ctl_type: 0 read reg(default), 1 write reg, 2 only time delay
+		 * value:
+		 *     read:  reg number(num >= 1)
+		 *     write: reg value
+		 *     delay: time delay
+		 * time delay unit: msecs */
+		version_regs = <0x03 1 0>;
+		dump_regs = <0 256 0>;
+		hw_reset {
+			skip_repeate_ops_in_probe;
+			gpio_reset = <&tlmm 109 0>; // GPIO_109
+			/* gpio_state node: a node contains two data<state delay>
+			 * time delay unit: msecs */
+			ctl_sequence = <0 1 1 1>;
+		};
+		irq_handler {
+			gpio_irq = <&tlmm 158 0>; // GPIO_158
+			/* 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING, 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW */
+			irq_flags = <2>;
+			/* whether or not need reset chip */
+			need_reset;
+			rw_sequence = <
+				0x01 1 0
+				0x05 1 0
+				0x09 1 0
+				0x03 6 1 // mute chip
+			>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <16>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <0>;
+			max_register = <0xff>;
+		};
+	};
+};
+
+&smartpakit {
+	compatible = "huawei,smartpakit";
+	/* 0 hisi, 1 qcom */
+	soc_platform = <1>;
+	/* algo running on: 0 codec_dsp, 1 soc_dsp, 2 smartpa_dsp, 3 simple pa(not smpartpa), 4 simple pa(with i2c) */
+	algo_in = <1>;
+	/* algo_in params need match out_device for smartpa.
+	 * Now, up to only support eight pa, so out_device = <0 0 0 0 0 0 0 0>;
+	 * 1. This array is arranged in the following order:
+	 *    <0 1 2 3>
+	 *    <pril prir secl secr>
+	 * 2. This array element value is 0 or 1:
+	 *    smartpa: 0 speaker, 1 receiver
+	 *    simple pa: out_device not applicable, only set 0 to indicate pa_num
+	 * 3. The length of this array is variable, for example:
+	 *    single pa: out_device = <0>;
+	 *    two pa: out_device = <0 0>;
+	 *    four pa: out_device = <1 1 0 0>;
+	 *    eight pa: out_device = <0 0 0 0 0 0 0 0>; */
+	out_device = <0 0 0 0 0 0>;
+	/* param_version: 1 mixed smartpa param support */
+	param_version = <1>;
+	cali_data_update_mode = <1>;
+	status = "ok";
+
+	smartpakit_irq_pinctrl;
+	pinctrl-names = "default";
+	pinctrl-0 = <&smartpakit_irq_default>;
+};
+
+&deviceboxID {
+	compatible = "huawei,deviceboxID";
+	status = "ok";
+	check_mode = "gpio";
+	box_num = <6>;
+	enable_boxID = <1 1 1 1 1 1>;
+	gpio_num = <1 1 1 1 1 1>;
+	gpio_speakerID = <&tlmm 22 0>; /* GPIO_22 */
+	gpio_receiverID = <&tlmm 125 0>; /* GPIO_125 */
+	gpio_3rdboxID = <&tlmm 162 0>; /* GPIO_162 */
+	gpio_4thboxID = <&tlmm 114 0>; /* GPIO_114 */
+	gpio_5fifboxID = <&tlmm 127 0>; /* GPIO_127 */
+	gpio_6sixboxID = <&tlmm 62 0>; /* GPIO_062 */
+	speaker_map = <2 6>; /* 1:"AAC", 2:"GEER", 3:"GD", 4:"LC", 5:"LX ", 6:"XW ", 7:"SSI " */
+	receiver_map = <2 6>;
+	box3rd_map = <2 6>;
+	box4th_map = <2 6>;
+	box5fif_map = <2 3>;
+	box6six_map = <2 3>;
+	pinctrl-names = "default", "idle";
+	pinctrl-0 = <&box_id_default>;
+	pinctrl-1 = <&box_id_sleep>;
+	deviceboxID_limit = <500>;
+	box_consistent_test_info {
+		consistent_test_support;
+		each_group_elem_num = <4 2>;
+		consistent_test_groups = <
+			0 1 2 3
+			4 5
+		>;
+	};
+};
+
+&hw_adsp_misc {
+	compatible = "hw,hw_adsp_misc";
+	rx_port_id = <0x9000>;
+	tx_port_id = <0x9001>;
+	smartpa_num = <6>;
+	status = "ok";
+
+	tfa_smartamp: tfa_smartamp@0{
+            compatible = "huawei,tfa_smartamp";
+            algo_control_need = <0>;
+            status = "ok";
+    };
+
+     awinic_smartamp: awinic_smartamp@0{
+        compatible = "huawei,awinic_smartamp";
+        algo_control_need = <0>;
+        status = "ok";
+    };
+
+	customize_smartamp: customize_smartamp@0{
+        compatible = "huawei,customize_smartamp";
+        algo_control_need = <0>;
+        status = "ok";
+    };
+};
+
+&kona_snd {
+	qcom,tdm-max-slots = <8>;
+	qcom,afe-rxtx-lb = <1>;
+	qcom,audio-routing =
+		"AMIC1", "MIC BIAS1",
+		"MIC BIAS1", "Analog Mic1",
+		"AMIC2", "MIC BIAS2",
+		"MIC BIAS2", "Analog Mic2",
+		"AMIC3", "MIC BIAS1",
+		"MIC BIAS1", "Analog Mic3",
+		"AMIC4", "MIC BIAS4",
+		"MIC BIAS4", "Analog Mic4",
+		"AMIC5", "MIC BIAS3",
+		"MIC BIAS3", "Analog Mic5",
+		"TX DMIC0", "MIC BIAS3",
+		"MIC BIAS3", "Digital Mic0",
+		"TX DMIC1", "MIC BIAS3",
+		"MIC BIAS3", "Digital Mic1",
+		"TX DMIC2", "MIC BIAS1",
+		"MIC BIAS1", "Digital Mic2",
+		"TX DMIC3", "MIC BIAS1",
+		"MIC BIAS1", "Digital Mic3",
+		"TX DMIC5", "MIC BIAS4",
+		"MIC BIAS4", "Digital Mic5",
+		"IN1_HPHL", "HPHL_OUT",
+		"IN2_HPHR", "HPHR_OUT",
+		"IN3_AUX", "AUX_OUT",
+		"TX SWR_ADC0", "ADC1_OUTPUT",
+		"TX SWR_ADC1", "ADC2_OUTPUT",
+		"TX SWR_ADC2", "ADC3_OUTPUT",
+		"TX SWR_ADC3", "ADC4_OUTPUT",
+		"TX SWR_DMIC0", "DMIC1_OUTPUT",
+		"TX SWR_DMIC1", "DMIC2_OUTPUT",
+		"TX SWR_DMIC2", "DMIC3_OUTPUT",
+		"TX SWR_DMIC3", "DMIC4_OUTPUT",
+		"TX SWR_DMIC4", "DMIC5_OUTPUT",
+		"TX SWR_DMIC5", "DMIC6_OUTPUT",
+		"TX SWR_DMIC6", "DMIC7_OUTPUT",
+		"TX SWR_DMIC7", "DMIC8_OUTPUT",
+		"WSA SRC0_INP", "SRC0",
+		"WSA_TX DEC0_INP", "TX DEC0 MUX",
+		"WSA_TX DEC1_INP", "TX DEC1 MUX",
+		"RX_TX DEC0_INP", "TX DEC0 MUX",
+		"RX_TX DEC1_INP", "TX DEC1 MUX",
+		"RX_TX DEC2_INP", "TX DEC2 MUX",
+		"RX_TX DEC3_INP", "TX DEC3 MUX",
+		"SpkrRight IN", "WSA_SPK2 OUT",
+		"VA_AIF1 CAP", "VA_SWR_CLK",
+		"VA_AIF2 CAP", "VA_SWR_CLK",
+		"VA_AIF3 CAP", "VA_SWR_CLK",
+		"VA MIC BIAS3", "Digital Mic0",
+		"VA MIC BIAS3", "Digital Mic1",
+		"VA MIC BIAS1", "Digital Mic2",
+		"VA MIC BIAS1", "Digital Mic3",
+		"VA MIC BIAS4", "Digital Mic5",
+		"VA DMIC0", "VA MIC BIAS3",
+		"VA DMIC1", "VA MIC BIAS3",
+		"VA DMIC2", "VA MIC BIAS1",
+		"VA DMIC3", "VA MIC BIAS1",
+		"VA DMIC5", "VA MIC BIAS4",
+		"VA SWR_ADC1", "VA_SWR_CLK",
+		"VA SWR_MIC0", "VA_SWR_CLK",
+		"VA SWR_MIC1", "VA_SWR_CLK",
+		"VA SWR_MIC2", "VA_SWR_CLK",
+		"VA SWR_MIC3", "VA_SWR_CLK",
+		"VA SWR_MIC4", "VA_SWR_CLK",
+		"VA SWR_MIC5", "VA_SWR_CLK",
+		"VA SWR_MIC6", "VA_SWR_CLK",
+		"VA SWR_MIC7", "VA_SWR_CLK",
+		"VA SWR_MIC0", "DMIC1_OUTPUT",
+		"VA SWR_MIC1", "DMIC2_OUTPUT",
+		"VA SWR_MIC2", "DMIC3_OUTPUT",
+		"VA SWR_MIC3", "DMIC4_OUTPUT",
+		"VA SWR_MIC4", "DMIC5_OUTPUT",
+		"VA SWR_MIC5", "DMIC6_OUTPUT",
+		"VA SWR_MIC6", "DMIC7_OUTPUT",
+		"VA SWR_MIC7", "DMIC8_OUTPUT",
+		"VA SWR_ADC1", "ADC2_OUTPUT";
+		/delete-property/ qcom,tert-mi2s-gpios;
+};
+
+&tdm_pri_rx {
+	qcom,msm-cpudai-tdm-clk-rate = <12288000>;
+	qcom,msm-cpudai-tdm-invert-sync = <0>;
+	qcom,msm-cpudai-tdm-sync-mode = <0>;
+
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&pri_mi2s_sck_active &pri_mi2s_ws_active
+			&pri_mi2s_sd0_active &pri_mi2s_sd1_active>;
+	pinctrl-1 = <&pri_mi2s_sck_sleep &pri_mi2s_ws_sleep
+			&pri_mi2s_sd0_sleep &pri_mi2s_sd1_sleep>;
+};
+
+&tdm_pri_tx {
+	qcom,msm-cpudai-tdm-clk-rate = <12288000>;
+	qcom,msm-cpudai-tdm-invert-sync = <0>;
+	qcom,msm-cpudai-tdm-sync-mode = <0>;
+};
+
+&cdc_dmic45_gpios {
+	status = "disabled";
+};
+
+&wsa_spkr_en1 {
+	status = "disabled";
+};
+
+&wsa_spkr_en2 {
+	status = "disabled";
+};
+
+&cdc_tert_mi2s_gpios {
+	status = "disabled";
+};

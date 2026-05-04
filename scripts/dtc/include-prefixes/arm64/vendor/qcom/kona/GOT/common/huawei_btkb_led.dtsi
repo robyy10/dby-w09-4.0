@@ -1,0 +1,6 @@
+&btkb_led {
+	status = "ok";
+	btkb_led_notifier = <1>;
+	btkb_led_notifier_client = <1>;
+	panel = <&dsi_got_350_c00_12p6_qcom &dsi_got_350_h01_12p6_qcom>;
+};

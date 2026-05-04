@@ -1,0 +1,12 @@
+ccflags-y := -I$(srctree)/include/drm -I$(srctree)/techpack/display/msm -I$(srctree)/techpack/display/msm/dsi
+ccflags-y += -I$(srctree)/techpack/display/include
+ccflags-y += -I$(srctree)/techpack/display/include/uapi/display
+ccflags-y += -I$(srctree)/drivers/clk/qcom
+ccflags-y += -I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/common/include
+ccflags-y += -I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/include
+ccflags-y += -I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/adapt
+ccflags-y += -Ivendor/huawei/chipset_common/plugins/kernel/include
+obj-$(CONFIG_HUAWEI_HALL_SENSORS) += ak8789.o
+obj-$(CONFIG_HUAWEI_HALL_SENSORS) += hall_report.o
+obj-$(CONFIG_HUAWEI_HALL_SENSORS) += ext_hall_event.o
+obj-$(CONFIG_HUAWEI_DSM) += ak8789_dsm.o

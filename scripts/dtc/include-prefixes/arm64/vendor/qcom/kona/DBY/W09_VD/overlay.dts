@@ -1,0 +1,97 @@
+/dts-v1/;
+/plugin/;
+
+#include "../../common/common.dtsi"
+#include "../W09_VA/huawei-lcd.dtsi"
+#include "../W09_VA/huawei_tp.dtsi"
+#include "../common/huawei_charger.dtsi"
+#include "../W09_VA/huawei_antenna_board_detect.dtsi"
+#include "../W09_VA/huawei_dev_detect.dtsi"
+#include "../W09_VA/huawei-audio.dtsi"
+#include "../W09_VA/huawei-vibrator.dtsi"
+#include "../W09_VA/huawei_camera.dtsi"
+#include "../W09_VA/huawei-sensor.dtsi"
+#include "../W09_VA/huawei_wifi.dtsi"
+#include "../W09_VA/huawei_wifionly.dtsi"
+#include "../W09_VA/huawei_led.dtsi"
+#include "../common/huawei_usb.dtsi"
+#include "../common/huawei_btkb_led.dtsi"
+/ {
+    /* bsp_replace_info @ model = "Huawei Technologies, Inc. %product_name%"; */
+    model = "Huawei Technologies, Inc. DBY-W09";
+    compatible = "qcom,kona-qrd", "qcom,kona", "qcom,qrd";
+    /* bsp_replace_info @ qcom,board-id = <%boardid% 0>; */
+    qcom,board-id = <8206 0>;
+};
+
+&huawei_gps_info {
+    qcom,gps_dcxo = "1";
+};
+
+&huawei_lcd_panel {
+        compatible = "huawei,lcd_panel_type";
+        /* auto_key_info @ name: product_id type: uint32 default: 0 */
+        product_id = <2000>;
+        /* auto_key_info @ name: gpio_id[2] type: int default: 0 */
+        gpio_id = <13 152>;
+        /* auto_key_info @ name: bias_ctrl_type type: uint32 default: 0 */
+        bias_ctrl_type = <3>;
+        /* auto_key_info @ name: vsp_gpio_id type: uint32 default: 0 */
+        vsp_gpio_id = <11>;
+        /* auto_key_info @ name: vsn_gpio_id type: uint32 default: 0 */
+        vsn_gpio_id = <12>;
+        /* auto_key_info @ name: lcd_reset_gpio type: uint32 default: 0 */
+        lcd_reset_gpio = <38>;
+        /* auto_key_info @ name: tp_reset_gpio type: uint32 default: 0 */
+        tp_reset_gpio = <0>;
+        /* auto_key_info @ name: te_gpio type: uint32 default: 0 */
+        te_gpio = <0>;
+        /* auto_key_info @ name: iovcc_gpio type: uint32 default: 0 */
+        iovcc_gpio = <6>;
+        /* auto_key_info @ name: bl_en_gpio type: uint32 default: 0 */
+        bl_en_gpio = <10>;
+        /* auto_key_info @ name: bl_dual_gpio type: uint32 default: 0 */
+        bl_dual_gpio = <0>;
+        /*auto_key_info @ name: bl_bias_together type: uint32 default: 1*/
+        bl_bias_together = <0>;
+        support_lcd_type = "LCD_KIT";
+};
+
+&dsi_debussy_290_20d_10p9_qcom {
+	lcd-kit,lcd-vci-name = "vdd";
+	lcd-kit,lcd-vci = <1 11 3200000 3200000 3300000 62000 80>;
+};
+
+&dsi_debussy_190_20d_10p9_qcom {
+	lcd-kit,lcd-vci-name = "vdd";
+	lcd-kit,lcd-vci = <1 11 3200000 3200000 3300000 62000 80>;
+};
+
+&dsi_debussy_110_20d_10p9_qcom {
+        lcd-kit,lcd-vci-name = "vdd";
+        lcd-kit,lcd-vci = <1 11 3200000 3200000 3300000 62000 80>;
+};
+
+&dsi_debussy_110_a09_10p9_qcom {
+        lcd-kit,lcd-vci-name = "vdd";
+        lcd-kit,lcd-vci = <1 11 3200000 3200000 3300000 62000 80>;
+};
+
+&sde_dsi {
+       qcom,dsi-default-panel = <&dsi_debussy_dual_nt36523_video_mode_default>;
+};
+
+&rootparam {
+    /* bsp_replace_info @ qcom,boardid = <%boardid_split%>; */
+    /* auto_key_info @ name: boardid type: uint32 default: 0 */
+    qcom,boardid = <8 2 0 6>;
+    /* bsp_replace_info @ qcom,board_name = "%board_name%"; */
+    qcom,board_name = "DBY_W09_VD";
+    /* bsp_replace_info @ qcom,product_name = "%product_name%"; */
+    qcom,product_name = "DBY-W09";
+    /* bsp_replace_info @ hardware_version = "%hardware_version%"; */
+    hardware_version = "SH1DBSLM";
+    /* bsp_replace_info @ huawei,modem_id = <%modem_id% 0x0>; */
+    huawei,modem_id = <0xFFFFFFFF 0x0>;
+};
+

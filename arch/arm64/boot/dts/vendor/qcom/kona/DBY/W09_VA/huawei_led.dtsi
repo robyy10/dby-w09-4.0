@@ -1,0 +1,11 @@
+&pm8150l_rgb_led {
+	red {
+			leds_disting = "true";
+			cust_brightness = <70>;
+	};
+
+	green {
+			leds_disting = "true";
+			cust_brightness = <120>;
+	};
+};

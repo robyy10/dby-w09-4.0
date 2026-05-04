@@ -1,0 +1,11 @@
+config HW_QOS_THREAD
+    bool "iaware 5.0 qos thread"
+    default n
+    help
+      if set, qos thread is propagated by lock&binder, and picked first in lock's waitlist
+
+config HW_ASYNC_BINDER_TRANS
+    bool "iaware async binder trans"
+    default n
+    help
+      if set, async binder prio can be trans

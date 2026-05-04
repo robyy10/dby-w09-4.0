@@ -1,0 +1,6 @@
+&huawei_bt_info{
+    compatible = "huawei,huawei_bt_info", "huawei,hw_bt_info";
+    status = "ok";
+    bt,fw_ver = "QCOM_QCA6391_1.0.1.0.772.0";
+    bt,chiptype = "BT_FM_QUALCOMM_QCA6391";
+};

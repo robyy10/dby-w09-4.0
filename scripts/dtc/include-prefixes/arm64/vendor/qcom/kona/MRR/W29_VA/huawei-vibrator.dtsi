@@ -1,0 +1,34 @@
+&tlmm {
+        vibrator_default: vibrator_default {
+                mux {
+                        pins = "gpio72";
+                        function =  "gpio";
+                };
+                config {
+                        pins = "gpio72";
+                        drive-strength = <2>;
+                        bias-pull-down;
+                };
+        };
+
+        vibrator_active: vibrator_active {
+                mux {
+                        pins = "gpio72";
+                        function =  "gpio";
+                };
+                config {
+                        pins = "gpio72";
+                        drive-strength = <2>;
+                        bias-pull-up;
+                };
+        };
+};
+
+&vibrator_hw_config {
+        compatible = "qcom,qpnp-vibrator-gpio";
+        pinctrl-names = "default", "active";
+        pinctrl-0 = <&vibrator_default>;
+        pinctrl-1 = <&vibrator_active>;
+        status = "ok";
+};
+

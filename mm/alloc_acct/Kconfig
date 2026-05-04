@@ -1,0 +1,5 @@
+config HW_ALLOC_ACCT
+	bool "Enable Alloc account
+	default n
+	help
+	  This macro controls the functions of alloc account.

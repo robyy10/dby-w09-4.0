@@ -1,0 +1,11 @@
+&singleap_wifionly {
+        compatible = "singleap,wifionly";
+        is_wifionly = "1";
+        status = "ok";
+};
+
+&singleap_no_modem {
+        compatible = "singleap,no_modem";
+        is_no_modem = "1";
+        status = "ok";
+};

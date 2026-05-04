@@ -1,0 +1,29 @@
+&tlmm {
+
+	ant_boardid_gpio_det_default:ant_boardid_gpio_det_default {
+		mux {
+			pins = "gpio69";
+			function =  "gpio";
+		};
+		config {
+			pins = "gpio69";
+			num-grp-pins = <1>;
+			drive-strength = <2>;
+			bias-disable;
+		};
+	};
+
+	ant_boardid_gpio_det_idle:ant_boardid_gpio_det_idle {
+		mux {
+			pins = "gpio69";
+			function =  "gpio";
+		};
+		config {
+			pins = "gpio69";
+			num-grp-pins = <1>;
+			drive-strength = <2>;
+			bias-disable;
+		};
+	};
+
+};

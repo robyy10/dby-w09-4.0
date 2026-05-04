@@ -1,0 +1,57 @@
+&tlmm {
+	sdc2_clk_on: sdc2_clk_on {
+		config {
+			pins = "sdc2_clk";
+			bias-disable;           /* NO pull */
+			drive-strength = <12>;  /* 12 MA */
+		};
+	};
+
+	sdc2_clk_ds_400KHz: sdc2_clk_ds_400KHz {
+		config {
+			pins = "sdc2_clk";
+			bias-disable;           /* NO pull */
+			drive-strength = <12>;  /* 12 MA */
+		};
+	};
+
+	sdc2_cmd_on: sdc2_cmd_on {
+		config {
+			pins = "sdc2_cmd";
+			bias-pull-up;		/* pull up */
+			drive-strength = <10>;	/* 10 MA */
+		};
+	};
+
+	sdc2_cmd_ds_400KHz: sdc2_cmd_ds_400KHz {
+		config {
+			pins = "sdc2_cmd";
+			bias-pull-up;		/* pull up */
+			drive-strength = <10>;	/* 10 MA */
+		};
+	};
+
+	sdc2_data_on: sdc2_data_on {
+		config {
+			pins = "sdc2_data";
+			bias-pull-up;		/* pull up */
+			drive-strength = <10>;	/* 10 MA */
+		};
+	};
+
+	sdc2_data_ds_400KHz: sdc2_data_ds_400KHz {
+		config {
+			pins = "sdc2_data";
+			bias-pull-up;		/* pull up */
+			drive-strength = <10>;	/* 10 MA */
+		};
+	};
+};
+
+&sdhc_2 {
+	qcom,vdd-io-voltage-level = <1808000 1808000>;
+	sd-1v8-enable-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+	nm-card = <1>;
+
+	status = "ok";
+};

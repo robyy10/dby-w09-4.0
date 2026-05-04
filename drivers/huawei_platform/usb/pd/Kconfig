@@ -1,0 +1,8 @@
+source "drivers/huawei_platform/usb/pd/richtek/Kconfig"
+config HUAWEI_PD
+        bool "huawei_pd"
+        default n
+
+config HUAWEI_PD_THIRDPARTY
+        bool "huawei_pd_thirdparty"
+        default n

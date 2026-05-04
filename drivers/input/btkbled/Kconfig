@@ -1,0 +1,5 @@
+config INPUT_BTKB_LED
+	tristate "btkb_led" if EXPERT
+	default n
+	help
+	  Say Y here if you want bt keyboard led suspend and resume contrl by drm or fb. If unsure, say N.

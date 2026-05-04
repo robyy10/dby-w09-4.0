@@ -1,0 +1,142 @@
+
+qcom,4980913_huawei_marxr_7150mah_averaged_masterslave_feb8th2021 {
+	qcom,profile-revision = <24>;
+	/* #4980913_Huawei_MarxR_7150mAH_averaged_MasterSlave_Feb7th2021*/
+	qcom,max-voltage-uv = <4400000>;
+	qcom,fg-cc-cv-threshold-mv = <4390>;
+	qcom,fastchg-current-ma = <5325>;
+	qcom,nom-batt-capacity-mah = <7150>;
+	qcom,batt-id-kohm = <22>;
+	/* COLD = 0 DegC, HOT = 45 DegC */
+	qcom,jeita-hard-thresholds = <0x3733 0xF6C>;
+	/* COOL = 10 DegC, WARM = 40 DegC */
+	qcom,jeita-soft-thresholds = <0x2AEE 0x11D6>;
+	/* COOL hys = 13 DegC, WARM hys = 42 DegC */
+	qcom,jeita-soft-hys-thresholds = <0x28DA 0x1134>;
+	qcom,jeita-fcc-ranges = <0    50   715000
+				 51   100  2145000
+				 101  450  5000000
+				 451  600  2500000>;
+	qcom,jeita-fv-ranges = <0   50   4400000
+				51  100  4400000
+				101 450  4400000
+				451 600  4100000>;
+	qcom,jeita-soft-fcc-ua = <2145000 2500000>;
+	qcom,jeita-soft-fv-uv = <4400000 4100000>;
+	qcom,battery-beta = <3435>;
+	qcom,therm-room-temp = <10000>;
+	qcom,battery-type = "desay_7150_22k";
+	qcom,therm-coefficients = <0x2307 0x1575 0xf2 0xdd8c 0x9272>;
+	qcom,therm-center-offset = <0x38>;
+	qcom,therm-pull-up = <30>;
+	qcom,rslow-normal-coeffs = <0x17 0x01 0xc6 0x12>;
+	qcom,rslow-low-coeffs = <0x9b 0x03 0xac 0x13>;
+	qcom,checksum = <0x09F3>;
+	qcom,gui-version = "PM855GUI - 1.0.0.14";
+	qcom,fg-profile-data = [
+		 09 00 53 E2
+		 33 D5 30 DA
+		 E7 D5 00 00
+		 BD B4 C9 82
+		 FF 87 30 93
+		 10 94 28 80
+		 19 00 17 01
+		 C6 12 F5 05
+		 8F F2 CE 07
+		 32 00 D6 EA
+		 D4 ED 5C DA
+		 49 12 D3 07
+		 3F C4 5B 1A
+		 CF FB FE CA
+		 60 00 43 00
+		 3F 00 3D 00
+		 2C 00 2F 00
+		 37 00 48 00
+		 42 00 43 00
+		 3D 00 60 00
+		 2F 00 3C 00
+		 47 00 41 00
+		 3D 00 85 00
+		 5B 64 47 00
+		 40 00 40 08
+		 60 F8 52 00
+		 53 00 78 10
+		 68 10 5E 00
+		 B4 28 7D 48
+		 67 60 5A 0C
+		 5D 00 D8 F8
+		 97 1F 81 0D
+		 7D 02 CF 04
+		 5F 1C 72 0B
+		 97 0D 9A 22
+		 FF 17 4C 42
+		 11 5D 99 02
+		 68 10 31 1F
+		 3D 04 0E 02
+		 BE 06 E3 1C
+		 01 02 B2 05
+		 A3 02 5B 18
+		 87 23 95 44
+		 45 52 72 11
+		 E6 1E 7B E6
+		 9C C3 F2 BE
+		 DC 1C BB C1
+		 B5 04 D6 B3
+		 26 18 57 8B
+		 09 85 9C 93
+		 78 98 09 80
+		 32 02 FC 0D
+		 76 04 06 03
+		 00 00 53 DC
+		 65 EA F8 FF
+		 CA DB 36 C5
+		 32 18 13 00
+		 76 E7 68 02
+		 6E 05 A8 01
+		 CE 07 32 00
+		 92 01 2E 02
+		 9C 05 A3 02
+		 A9 05 12 03
+		 AF 02 9A 03
+		 A7 04 51 00
+		 39 00 40 00
+		 44 64 48 00
+		 44 F8 44 00
+		 48 E8 46 00
+		 48 00 48 10
+		 3F 10 3D 00
+		 51 28 53 48
+		 5C 60 6E 0C
+		 49 00 50 00
+		 5C 08 68 F8
+		 53 00 48 00
+		 53 10 67 10
+		 5F 00 73 28
+		 93 48 59 60
+		 67 0C 70 00
+		 68 00 44 08
+		 D8 00 16 1F
+		 B1 05 84 0A
+		 A6 0C C4 1C
+		 7E 23 88 45
+		 A6 5A 60 18
+		 4F 02 0E 05
+		 9B 02 60 10
+		 3F 0A 7F 1F
+		 F0 05 33 02
+		 23 05 AA 1C
+		 84 03 70 05
+		 DA 02 6B 18
+		 27 02 5F 05
+		 3B 02 61 00
+		 53 1F 0D 06
+		 2C 02 8E 06
+		 DC 1C 60 02
+		 1E 05 38 03
+		 A3 18 51 03
+		 D0 04 1E 02
+		 6D 00 A9 00
+		 C0 00 FA 00
+		 BA 1C 00 00
+	];
+};

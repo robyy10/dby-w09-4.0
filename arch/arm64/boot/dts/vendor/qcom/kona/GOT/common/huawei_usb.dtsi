@@ -1,0 +1,5 @@
+&switch_interface {
+	fcp_support = <1>;
+	scp_support = <1>;
+	status = "ok";
+};

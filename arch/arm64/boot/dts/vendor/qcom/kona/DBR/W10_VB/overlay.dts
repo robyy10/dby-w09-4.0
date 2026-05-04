@@ -1,0 +1,35 @@
+/dts-v1/;
+/plugin/;
+
+#include "../common/common.dtsi"
+#include "../common/qcom_gpu_config_for870.dtsi"
+#include "huawei_wifi.dtsi"
+#include "huawei_gps.dtsi"
+
+/ {
+    /* bsp_replace_info @ model = "Huawei Technologies, Inc. %product_name%"; */
+    model = "Huawei Technologies, Inc. DBR-W10";
+    compatible = "qcom,kona-qrd", "qcom,kona", "qcom,qrd";
+    /* bsp_replace_info @ qcom,board-id = <%boardid% 0>; */
+    qcom,board-id = <8440 0>;
+};
+
+&rootparam {
+    /* bsp_replace_info @ qcom,boardid = <%boardid_split%>; */
+    /* auto_key_info @ name: boardid type: uint32 default: 0 */
+    qcom,boardid = <8 4 4 0>;
+    /* bsp_replace_info @ qcom,board_name = "%board_name%"; */
+    qcom,board_name = "DBR_W10_VB";
+    /* bsp_replace_info @ qcom,product_name = "%product_name%"; */
+    qcom,product_name = "DBR-W10";
+    /* bsp_replace_info @ hardware_version = "%hardware_version%"; */
+    hardware_version = "SH1DBRLM";
+    /* bsp_replace_info @ huawei,modem_id = <%modem_id% 0x0>; */
+    huawei,modem_id = <0xFFFFFFFF 0x0>;
+};
+
+&singleap_wifionly {
+    compatible = "singleap,wifionly";
+    is_wifionly = "1";
+    status = "ok";
+};

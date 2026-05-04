@@ -1,0 +1,6 @@
+/*unicore lbs*/
+&huawei_gps_info {
+    status = "ok";
+    huawei,chip_type = "unicore";
+    huawei,subchip_type = "uc6228";
+};

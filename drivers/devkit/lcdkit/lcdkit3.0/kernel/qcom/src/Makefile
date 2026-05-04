@@ -1,0 +1,38 @@
+obj-$(CONFIG_LCD_KIT_QCOM)	+= lcd_kit_power.o
+obj-$(CONFIG_LCD_KIT_QCOM) 	+= lcd_kit_utils.o
+obj-$(CONFIG_LCD_KIT_QCOM) 	+= lcd_kit_panel.o
+obj-$(CONFIG_LCD_KIT_QCOM) 	+= lcd_kit_drm_panel.o
+obj-$(CONFIG_LCD_KIT_QCOM) 	+= lcd_kit_pinctrl.o
+obj-$(CONFIG_LCD_KIT_QCOM) 	+= bias/
+obj-$(CONFIG_LCD_KIT_QCOM) 	+= backlight/
+obj-$(CONFIG_LCD_KIT_QCOM)	+= hybrid/
+obj-$(CONFIG_LCD_KIT_QCOM)	+= crop/
+
+ifneq ($(TARGET_BUILD_VARIANT),user)
+EXTRA_CFLAGS += -DLCD_KIT_DEBUG_ENABLE
+endif
+ifeq ($(TARGET_VERSION_MODE),factory)
+EXTRA_CFLAGS += -DLCD_FACTORY_MODE
+endif
+EXTRA_CFLAGS +=-I$(srctree)/drivers/staging/android \
+		-I$(srctree)/drivers/atfdriver \
+		-I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0 \
+		-I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/common/include \
+		-I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/include \
+		-I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/adapt \
+		-I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/src/backlight \
+		-I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/src/hybrid \
+		-I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/qcom/src/crop \
+		-I$(srctree)/include/drm \
+		-I$(srctree)/include/uapi/drm \
+		-I$(srctree)/drivers/gpu/drm \
+		-I$(srctree)/techpack/display/msm \
+		-I$(srctree)/techpack/display/msm/dsi \
+		-I$(srctree)/techpack/display/include \
+		-I$(srctree)/techpack/display/include/uapi/display \
+		-I$(srctree)/drivers/clk/qcom \
+		-I$(srctree)/drivers/devkit/lcdkit/lcdkit3.0/kernel/common/displayengine/include
+
+ifeq ($(CONFIG_MATTING_ALGO_TASK),y)
+EXTRA_CFLAGS += -I$(srctree)/../../vendor/huawei/extra/kernel/drivers/sensor/ext_inputhub/matting_algo_task
+endif

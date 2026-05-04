@@ -1,0 +1,60 @@
+#include "../../../lcdkit3.0/got/devkit_lcd_kit.dtsi"
+#include "../common/huawei-lcd.dtsi"
+&huawei_lcd_panel {
+	compatible = "huawei,lcd_panel_type";
+	/* auto_key_info @ name: product_id type: uint32 default: 0 */
+	product_id = <7100>;
+	/* auto_key_info @ name: lcd_kit_power_ctrl type: uint32 default: 0 */
+	lcd_kit_power_ctrl = <1>;
+	/* auto_key_info @ name: gpio_id[2] type: int default: 0 */
+	gpio_id = <13 152>;
+	/* auto_key_info @ name: lcd_reset_gpio type: uint32 default: 0 */
+	lcd_reset_gpio = <12>;
+	/* auto_key_info @ name: te_gpio type: uint32 default: 0 */
+	te_gpio = <66>;
+	/* auto_key_info @ name: iovcc_gpio type: uint32 default: 0 */
+	iovcc_gpio = <154>;
+        /* auto_key_info @ name: bias_ctrl_type type: uint32 default: 0 */
+        bias_ctrl_type = <7>;
+        /* auto_key_info @ name: vsp_gpio_id type: uint32 default: 0 */
+        vsp_gpio_id = <0>;
+        /* auto_key_info @ name: vsn_gpio_id type: uint32 default: 0 */
+        vsn_gpio_id = <0>;
+        /* auto_key_info @ name: bl_en_gpio type: uint32 default: 0 */
+        bl_en_gpio = <0>;
+        /*auto_key_info @ name: bl_is_dual type: uint32 default: 0*/
+	 bl_is_dual = <0>;
+        /*auto_key_info @ name: bl_bias_together type: uint32 default: 1*/
+        bl_bias_together = <0>;
+        /* auto_key_info @ name: tp_reset_gpio type: uint32 default: 0 */
+        tp_reset_gpio = <0>;
+
+	support_lcd_type = "LCD_KIT";
+};
+
+&sde_dsi_active {
+                mux {
+                        pins = "gpio11";
+                        function = "gpio";
+                };
+                config {
+                        pins = "gpio11";
+                        drive-strength = <8>;   /* 8 mA */
+                        bias-disable;           /* NO PULL */
+                        input-enable;
+
+                };
+};
+&sde_dsi_suspend {
+                mux {
+                        pins = "gpio11";
+                        function = "gpio";
+                };
+                config {
+                        pins = "gpio11";
+                        drive-strength = <2>;   /* 2 mA */
+                        bias-disable;           /* NO PULL */
+                        input-enable;
+                };
+};
+

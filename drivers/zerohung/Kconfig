@@ -1,0 +1,27 @@
+config DFX_ZEROHUNG
+	depends on HW_LOGGER
+	bool "zero hung driver"
+	default n
+	---help---
+	  This feature support to catch hung log
+
+config DFX_ZEROHUNG_EXT
+	depends on HW_LOGGER
+	bool "zero hung driver"
+	default n
+	---help---
+	  This feature support to catch hung log
+
+config DFX_ZEROHUNG_SOFTLOCKUP
+	depends on HW_LOGGER && LOCKUP_DETECTOR
+	bool "softlockup"
+	default n
+	---help---
+		This feature use to detect softlockup
+
+config DFX_ZEROHUNG_SOFTLOCKUP_INJECT
+	depends on HW_LOGGER
+	bool "softlockup inject"
+	default n
+	---help---
+	  This feature use to cause softlockup

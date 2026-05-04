@@ -1,0 +1,10 @@
+obj-m += rsmc_driver.o
+rsmc_driver-y :=
+rsmc_driver-y += rsmc_msg_loop.o
+rsmc_driver-y += rsmc_spi_drv.o
+rsmc_driver-y += rsmc_x800_device.o
+rsmc_driver-y += rsmc_rx_ctrl.o
+rsmc_driver-y += rsmc_tx_ctrl.o
+rsmc_driver-y += rsmc_spi_ctrl.o
+rsmc_driver-y += rsmc_test.o
+rsmc_driver-y += track.o

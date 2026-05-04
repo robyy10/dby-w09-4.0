@@ -1,0 +1,64 @@
+&tlmm {
+	ak8789_default: ak8789_default {
+		mux {
+			pins = "gpio23", "gpio113", "gpio118", "gpio121", "gpio136";
+			function =  "gpio";
+		};
+		config {
+			pins = "gpio23", "gpio113", "gpio118", "gpio121", "gpio136";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+	};
+};
+
+&huawei_hall_sensor {
+	compatible = "huawei,hall-ak8789";
+	pinctrl-names = "default";
+	pinctrl-0 = <&ak8789_default>;
+	vdd-supply = <&pm8150a_l8>;
+	status = "ok";
+	is_support_hall_pen = <1>;
+	hall_pen_value = <0x10>; // 00010000(b): hall pen trigger mask
+	is_support_hall_keyboard = <1>;
+	hall_keyboard_value = <0x4>; // 0100(b): hall keyboard trigger mask
+	support_set_notify_flag = <1>;
+	support_hall_workaround = <1>;
+        limit_duration = <10>;
+        limit_pen_irq_cnt = <40>;
+        limit_pen_both_on_cnt = <3>;
+
+	huawei,hall_0 {
+		huawei,single-n-pole = <&tlmm 113 0>;
+		huawei,id = <0>;
+		huawei,type = <0x01>;
+		huawei,wakeup-flag = <0x4000>;
+		huawei,irq-type = <1>; // trigger mode(0: level 1: edge)
+		huawei,default-state = "on";
+	};
+	huawei,hall_1 {
+		huawei,single-n-pole = <&tlmm 136 0>;
+		huawei,single-s-pole = <&tlmm 118 0>;
+		huawei,id = <1>;
+		huawei,type = <0x03>;
+		huawei,wakeup-flag = <0x4000>;
+		huawei,irq-type = <1>; // trigger mode(0: level 1: edge)
+		huawei,default-state = "on";
+	};
+	huawei,hall_2 {
+		huawei,single-n-pole = <&tlmm 23 0>;
+		huawei,id = <2>;
+		huawei,type = <0x01>;
+		huawei,wakeup-flag = <0x4000>;
+		huawei,irq-type = <1>; // trigger mode(0: level 1: edge)
+		huawei,default-state = "on";
+	};
+	huawei,hall_3 {
+		huawei,single-n-pole = <&tlmm 121 0>;
+		huawei,id = <3>;
+		huawei,type = <0x01>;
+		huawei,wakeup-flag = <0x4000>;
+		huawei,irq-type = <1>; // trigger mode(0: level 1: edge)
+		huawei,default-state = "on";
+	};
+};

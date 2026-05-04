@@ -1,0 +1,97 @@
+/* touch panel config */
+&qupv3_se13_i2c {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "ok";
+
+	ts_kit {
+		status = "okay";
+		compatible = "huawei,ts_kit";   /* Do not change value*/
+		bus_type = "i2c";
+		product = "mrr";
+		bus_id = <2>;
+		has_virtualkey = <0>;
+		pen_aft_enable = <1>;
+		aft_enable = <2>;
+		esd_watchdog_state_check = <1>;
+		ts_app_info_flag = <1>;
+		drv_stop_width = <0>;   /* always 0, can not config */
+		lcd_width = <0>;    /* always 0, can not config */
+		lcd_height = <0>;   /* always 0, can not config */
+		need_i2c_hwlock = <0>;  /* for i2c both used by ap and sensorhub */
+		register_charger_notifier = <1>;
+		hide_plain_id = <1>;
+		fp_tp_enable = <1>;
+		interrupt-parent = <&tlmm>;
+		interrupts = <39 0>;
+		reset_gpio = <&tlmm 38 0x00>;
+		irq_gpio = <&tlmm 39 0x00>;
+
+		gtx8: touchscreen@5d{
+			compatible = "gtx8";
+			slave_address = <0x5d>;
+			irq_config = <3>;/* 0 - LOW_LEVEL 1 - HIGH LEVEL 2 - RAISE EDGE 3 - FALL EDGE*/
+			ts-kit-iovdd-type = <1>; /* 0-unused 1-ldo 2-gpio */
+			ts-kit-iovdd-supply = <&pm8150a_l1>;
+			ts-kit-iovdd-value = <1800000>;
+			ts-kit-vcc-type = <1>; /* 0-unused 1-ldo 2-gpio */
+			ts-kit-vcc-supply = <&pm8150_l13>;
+			ts-kit-vcc-value = <3008000>;
+			ic_type = <5>;
+			rawdata_newformatflag = <1>;
+			pinctrl-names = "default", "idle";
+			pinctrl-1 = <&ts_int_suspend &ts_reset_suspend>;
+			pinctrl-0 = <&ts_active>;
+			algo_id = <0>;
+			x_max_mt = <1599>;
+			y_max_mt = <2559>;
+			rawdata_arrange_type = <1>;
+			roi_data_size = <7 7>;
+			project_id = "MARX99180";
+			chip_name = "7382";
+			module_vendor = "toptouch";
+			tools_support = <1>;
+			gtx8_static_pid_support = <1>; /*1->0*/
+			roi_supported = <1>;
+			gtx8_roi_data_add = <0xFBA4>;
+			holster_supported = <0>;
+			glove_supported = <0>;
+			easy_wakeup_supported = <1>;
+			charger_supported = <1>;
+			supported_pen_alg = <0>;
+			supported_pen_mmitest = <0>;
+			pen_support = <1>;
+			need_wd_check_status = <1>;
+			send_stylus_gesture_switch = <1>;
+			rawdata_get_timeout = <20>;
+			touch_switch_flag = <2>;
+			support_get_tp_color = <0>;/*0 - no need, 1 - need */
+			support_read_projectid = <1>;
+			support_wake_lock_suspend = <1>;
+			support_deleted_insignificant_info = <1>;
+			support_filename_contain_projectid = <1>;
+			support_filename_contain_lcd_module = <0>;
+			support_checked_esd_reset_chip = <1>;
+			support_read_more_debug_msg = <1>;
+			support_read_gesture_without_checksum = <1>;
+			gtx8_roi_fw_supported = <1>;
+			send_bt_status_to_fw = <1>;
+			send_stylus_type_to_fw = <1>;
+			support_stylus3_plam_suppression = <1>;
+			support_pen_use_max_resolution = <1>;
+			x_max_rc = <12799>;
+			y_max_rc = <20479>;
+			support_retry_read_gesture = <1>;
+			SENSORID0 {
+				compatible = "gtx8-sensorid-0";
+				module_vendor = "ofilm";
+				project_id = "MARX99000";
+			};
+			SENSORID1 {
+				compatible = "gtx8-sensorid-1";
+				module_vendor = "toptouch";
+				project_id = "MARX99180";
+			};
+		};
+	};
+};

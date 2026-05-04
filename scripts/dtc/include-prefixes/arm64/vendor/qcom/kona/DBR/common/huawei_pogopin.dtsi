@@ -1,0 +1,108 @@
+&tlmm {
+	huawei_pogopin_sw_int:huawei_pogopin_sw_int {
+		mux{
+			pins = "gpio51";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio51";
+			bias-pull-up;
+			input-enable;
+		};
+	};
+
+	huawei_pogopin_sw_vcc_en:huawei_pogopin_sw_vcc_en {
+		mux{
+			pins = "gpio155";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio155";
+			bias-pull-down;
+			input-enable;
+		};
+	};
+
+	qupv3_se5_2uart_pins: qupv3_se5_2uart_pins {
+		qupv3_se5_2uart_active: qupv3_se5_2uart_active {
+			mux {
+				pins = "gpio14", "gpio15";
+				function = "qup5";
+			};
+
+			config {
+				pins = "gpio14", "gpio15";
+				drive-strength = <2>;
+				bias-disable;
+			};
+		};
+
+		qupv3_se5_2uart_sleep: qupv3_se5_2uart_sleep {
+			mux {
+				pins = "gpio14", "gpio15";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio14", "gpio15";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+		};
+	};
+};
+
+&soc {
+	qupv3_se5_2uart: qcom,qup_uart@994000 {
+		compatible = "qcom,msm-geni-serial-hs";
+		reg = <0x994000 0x4000>;
+		reg-names = "se_phys";
+		clock-names = "se-clk", "m-ahb", "s-ahb";
+		clocks = <&clock_gcc GCC_QUPV3_WRAP0_S5_CLK>,
+			<&clock_gcc GCC_QUPV3_WRAP_0_M_AHB_CLK>,
+			<&clock_gcc GCC_QUPV3_WRAP_0_S_AHB_CLK>;
+		pinctrl-names = "default", "sleep";
+		pinctrl-0 = <&qupv3_se5_2uart_active>;
+		pinctrl-1 = <&qupv3_se5_2uart_sleep>;
+		interrupts = <GIC_SPI 606 IRQ_TYPE_LEVEL_HIGH>;
+		qcom,wrapper-core = <&qupv3_0>;
+		qcom,change-sampling-rate;
+		status = "disabled";
+	};
+};
+
+&qupv3_se5_2uart {
+	status = "ok";
+};
+
+&pm8150_vadc {
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	hw_pogopin_sw_adc@d {
+		reg = <ADC_AMUX_THM1>;
+		label = "hw_pogopin_sw_adc";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,pre-scaling = <1 1>;
+	};
+};
+
+&huawei_pogo_acc {
+	compatible = "huawei,pogopinaccessory";
+	status = "ok";
+};
+
+&huawei_pogopin_sw {
+	compatible = "huawei,pogopin_sw";
+	io-channels = <&pm8150_vadc ADC_AMUX_THM1>;
+	io-channel-names = "hw_pogopin_sw_adc";
+	pinctrl-names = "default";
+	pinctrl-0 = <&huawei_pogopin_sw_int &huawei_pogopin_sw_vcc_en>;
+	huawei_pogopin_sw_int_gpio = <&tlmm 51 0>;
+	huawei_pogopin_sw_vcc_en_gpio = <&tlmm 155 0>;
+	sw_tty_name = "ttyHS2";
+	status = "ok";
+};

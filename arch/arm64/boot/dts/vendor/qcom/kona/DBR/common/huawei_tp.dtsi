@@ -1,0 +1,219 @@
+/* touch panel config */
+&qupv3_se14_spi_active {
+	mux {
+		pins = "gpio40", "gpio41", "gpio42";
+		function = "qup14";
+	};
+
+	config {
+		pins = "gpio40", "gpio41", "gpio42";
+		drive-strength = <6>;
+		bias-disable;
+	};
+};
+
+&qupv3_se14_spi_sleep {
+	mux {
+		pins = "gpio40", "gpio41", "gpio42";
+		function = "gpio";
+	};
+
+	config {
+		pins = "gpio40", "gpio41", "gpio42";
+		drive-strength = <6>;
+		bias-disable;
+	};
+};
+
+&tlmm {
+	pmx_ts_int_active {
+		ts_int_active: ts_int_active {
+			mux {
+				pins = "gpio39";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio39";
+				drive-strength = <8>;
+				bias-disable;
+			};
+		};
+	};
+
+	pmx_ts_int_ts_suspend {
+		ts_int_ts_suspend: ts_int_ts_suspend {
+			mux {
+				pins = "gpio39";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio39";
+				drive-strength = <2>;
+				bias-disable;
+			};
+		};
+	};
+
+	pmx_ts_reset_active {
+		ts_reset_active: ts_reset_active {
+			mux {
+				pins = "gpio136";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio136";
+				drive-strength = <8>;
+				bias-disable;
+			};
+		};
+	};
+
+	pmx_ts_reset_suspend {
+		ts_reset_suspend: ts_reset_suspend {
+			mux {
+				pins = "gpio136";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio136";
+				drive-strength = <2>;
+				bias-disable;
+			};
+		};
+	};
+
+	pmx_ts_cs_high {
+		ts_cs_high: ts_cs_high {
+			mux {
+				pins = "gpio43";
+				function = "qup14";
+			};
+
+			config {
+				pins = "gpio43";
+				drive-strength = <6>;
+				bias-disable;
+			};
+		};
+	};
+
+	pmx_ts_cs_low {
+		ts_cs_low: ts_cs_low {
+			mux {
+				pins = "gpio43";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio43";
+				drive-strength = <6>;
+				bias-pull-down;
+				output-low;
+			};
+		};
+	};
+
+	pmx_ts_release {
+		ts_release: ts_release {
+			mux {
+				pins = "gpio39", "gpio136";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio39", "gpio136";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+	};
+};
+
+&soc {
+	spi@880000 {
+		status = "ok";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		qcom,rt = <1>;
+		huawei_thp: huawei_thp@10 {
+			compatible = "huawei,thp";
+			/* SPI Config */
+			spi-max-frequency = <16000000>;
+			spi-bus-id = <0>;
+			spi-mode = <0>;
+			reg = <0>;
+			spi_sync_cs_hi_delay_ns = <100>;
+			spi_sync_cs_low_delay_ns = <100>;
+
+			/* Timing */
+			boot_reset_hi_delay_ms = <10>;
+			boot_reset_low_delay_ms = <5>;
+			resume_reset_after_delay_ms = <10>;
+			suspend_reset_after_delay_ms = <1>;
+			use_mdelay = <1>;
+
+			/* GPIO Config */
+			irq_flag = <0x00000002>;
+			interrupt-parent = <&tlmm>;
+			interrupts = <39 0>;
+			rst_gpio = <&tlmm 136 0x00>;
+			irq_gpio = <&tlmm 39 0x00>;
+			cs_gpio = <&tlmm 43 0x00>;
+
+			pinctrl-names = "default", "idle", "state_cs_output1", "state_cs_output0";
+			pinctrl-0 = <&ts_int_active &ts_reset_active>;
+			pinctrl-1 = <&ts_int_ts_suspend &ts_reset_suspend>;
+			pinctrl-2 = <&ts_cs_high>;
+			pinctrl-3 = <&ts_cs_low>;
+			support_no_cs_for_qcom = <1>;
+			support_control_cs_off = <1>;
+
+			/* Feature Config */
+			use_thp_queue = <1>;
+			support_pinctrl = <1>;
+			pinctrl_init_enable = <1>;
+			hide_product_info_en = <1>;
+			pen_supported = <1>;
+			pen_mt_enable_flag = <1>;
+			support_stylus3_plam_suppression = <1>;
+			send_bt_status_to_fw = <1>;
+			send_adsorption_status_to_fw = <1>;
+			supported_charger = <1>;
+			aptouch_daemon_version = <3>;
+			support_gesture_mode = <1>;
+			lcd_gesture_mode_support = <1>;
+			need_enable_irq_wake = <1>;
+			lcd_esd_event_upload = <1>;
+			need_huge_memory_in_spi = <1>;
+
+			thp_input_dev {
+				compatible = "huawei,thp_input";
+				abs_max_x = <1600>;
+				abs_max_y = <2560>;
+				magnification_of_finger_resolution = <8>;
+			};
+			thp_pen_input_dev {
+				compatible = "huawei,thp_pen_input";
+				max_x = <12799>;
+				max_y = <20479>;
+				max_pressure = <4096>;
+			};
+			ilitek {
+				irq_flag = <0x00000002>;
+				spi-mode = <0>;
+				spi-max-frequency = <16000000>;
+				boot_reset_hi_delay_ms = <10>;
+				boot_reset_low_delay_ms = <5>;
+				spi_sync_cs_hi_delay_ns = <100>;
+				spi_sync_cs_low_delay_ns = <100>;
+				detect_by_dummy_reg = <1>;
+				support_control_cs_rst = <1>;
+				deepsleepin_support = <1>;
+			};
+		};
+	};
+};

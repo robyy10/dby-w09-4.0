@@ -1,0 +1,180 @@
+<hwlcd>
+	<PanelEntry>
+		<!--Panel type:dsi_video_mode-video mode, dsi_cmd_mode-command mode-->
+		<PanelTypeMode>"dsi_video_mode"</PanelTypeMode>
+		<PanelModeSwitch>0</PanelModeSwitch>
+
+		<!--Dsi ctrl number:1-one dsi ctrl, 2-two dsi ctrl-->
+		<DsiCtrlNum>0 1</DsiCtrlNum>
+		<!--Dsi phy number:1-one dsi phy, 2-two dsi phy-->
+		<DsiPhyNum>0 1</DsiPhyNum>
+
+		<!--oledtype: igzo_3, ltpo_1, ltps_0-->
+		<OledType>0x03</OledType>
+
+		<!-- Lane Config -->
+		<PanelDSILaneMap>"lane_map_0123"</PanelDSILaneMap>
+		<PanelLane0State>1</PanelLane0State>
+		<PanelLane1State>1</PanelLane1State>
+		<PanelLane2State>1</PanelLane2State>
+		<PanelLane3State>0</PanelLane3State>
+
+		<!-- MIPI Host Config -->
+		<DsiSelectClocks>"mux_byte_clk0", "mux_pixel_clk0", "cphy_byte_clk0", "cphy_pixel_clk0"</DsiSelectClocks>
+
+		<!-- Display dsi timming config -->
+		<DisplayDsiTimmingBegin>1</DisplayDsiTimmingBegin>
+		<DisplayDsiTimming0Begin>1</DisplayDsiTimming0Begin>
+		<DisplayDsiTimming0End>1</DisplayDsiTimming0End>
+		<DisplayDsiTimmingEnd>1</DisplayDsiTimmingEnd>
+
+		<!-- Display dsi timming0 config -->
+		<PanelXres0>800</PanelXres0>
+		<PanelYres0>2560</PanelYres0>
+		<HFrontPorch0>68</HFrontPorch0>
+		<HBackPorch0>20</HBackPorch0>
+		<HPulseWidth0>4</HPulseWidth0>
+		<VFrontPorch0>2737</VFrontPorch0>
+		<VBackPorch0>55</VBackPorch0>
+		<VPulseWidth0>4</VPulseWidth0>
+		<HSyncSkew0>0</HSyncSkew0>
+		<PanelFrameRate0>60</PanelFrameRate0>
+		<PanelPhyTimings0>"00 1C 08 07 27 2A 0A
+				19 0A 02 04 00 17 0C"</PanelPhyTimings0>
+		<DisplayTopology0>2 0 2</DisplayTopology0>
+		<DefaultTopologyIndex0>0</DefaultTopologyIndex0>
+
+		<!-- Backlight ctrl config -->
+		<BlPmicControlType>"bl_ctrl_i2c_ic"</BlPmicControlType>
+		<MdssDsiBlMinLevel>1</MdssDsiBlMinLevel>
+		<MdssDsiBlMaxLevel>4095</MdssDsiBlMaxLevel>
+		<DsiPanelCphyMode>1</DsiPanelCphyMode>
+
+		<!-- If LP11_INIT is set, panel will be powered up during prepare() , -->
+		<!-- If not set, will be powered up during pre_prepare()-->
+		<DsiLp11Init>1</DsiLp11Init>
+		<!--Panel version support-->
+		<PanelVersionSupport>1</PanelVersionSupport>
+		<PanelVerSion>"CG,AG"</PanelVerSion>
+		<PanelVerSionValue>"0xD2
+				0x4B"</PanelVerSionValue>
+
+		<!--Esd id support-->
+		<EsdEnabled>1</EsdEnabled>
+		<EsdGpioDetectSupport>1</EsdGpioDetectSupport>
+		<TpEsdGpioEvent>1</TpEsdGpioEvent>
+		<EsdOnlyGpioDetect>1</EsdOnlyGpioDetect>
+		<EsdFlag>1</EsdFlag>
+		<EsdDetectOneGpio>1</EsdDetectOneGpio>
+		<EsdCommand>"0x39, 0x01, 0x00, 0x00, 0x0A, 0x00, 0x04, 0xFF, 0x98, 0x82, 0x00
+			0x06, 0x01, 0x00, 0x00, 0x0A, 0x00, 0x01, 0x0A"</EsdCommand>
+		<EsdCommandState>"dsi_lp_mode"</EsdCommandState>
+		<EsdCheckMode>"reg_read"</EsdCheckMode>
+		<EsdReadLength>0 1</EsdReadLength>
+		<EsdValues>"0x00"</EsdValues>
+		<EsdGpioDetectNum0>135</EsdGpioDetectNum0>
+                <EsdGpioNormalValue0>1</EsdGpioNormalValue0>
+		<EsdTimingSwitch>1</EsdTimingSwitch>
+		<!--Project id support-->
+		<PanelProjectIdSupport>1</PanelProjectIdSupport>
+		<!--Tp Project Id-->
+		<PanelDefaultTpProjectId>"W358AX1300"</PanelDefaultTpProjectId>
+		<!--OemInfo support-->
+		<OemInfoSupport>1</OemInfoSupport>
+		<!--OemBarcode2DSupport support-->
+		<OemBarcode2DSupport>0</OemBarcode2DSupport>
+		<!--OemBarcode2DNumOffset-->
+		<OemBarcode2DNumOffset>0</OemBarcode2DNumOffset>
+		<!--sn code support-->
+		<PanelSnCodeSupport>0</PanelSnCodeSupport>
+		<!--bl max nit-->
+		<PanelBlMaxnit>450</PanelBlMaxnit>
+		<!--bl min brightness setting-->
+		<PanelBlmin>30</PanelBlmin>
+		<!--bl max brightness setting-->
+		<PanelBlmax>3932</PanelBlmax>
+		<!--Dot/column inversion test support-->
+		<PanelInversionSupport>0</PanelInversionSupport>
+		<!--Check panel power status test support-->
+		<FactoryCheckRegSupport>0</FactoryCheckRegSupport>
+		<!--Pt station test support-->
+		<PanelPtTestSupport>0</PanelPtTestSupport>
+		<!--Lcdkit fps support -->
+		<PanelFpsUpdtSupport>1</PanelFpsUpdtSupport>
+		<!--Lcdkit default fps -->
+		<PanelDefaultFps>60</PanelDefaultFps>
+		<!--Lcdkit fps support list -->
+		<PanelSupportFpsList>"60, 120"</PanelSupportFpsList>
+		<!--Lcdkit support send fps cmd msm atomic -->
+		<MsmAtomicFpsCmd>1</MsmAtomicFpsCmd>
+		<!--gpio offset number setting-->
+		<PanelGpioOffset>1100</PanelGpioOffset>
+		<PanelPhyWidth>145</PanelPhyWidth>
+		<PanelPhyHeight>232</PanelPhyHeight>
+		<PanelOnAlwaysNeedReset>1</PanelOnAlwaysNeedReset>
+		<DoesLcdPowerOnTp>1</DoesLcdPowerOnTp>
+		<!--event send
+		event, data, delay
+		event:0-NONE, 1-VCI, 2-IOVCC, 3-VSP, 4-VSN, 5-RESET, 6-MIPI, 7-TS early event, 8-TS later event, 9-vdd 10-AOD, 11-BIAS
+		data:0-power off, 1-power on
+		delay:ms/TS:0-no-sync 1-sync
+		-->
+		<!--Power on timming-->
+		<PowerOnStage>"2, 1, 2
+				3, 1, 5
+				4, 1, 5
+				11, 1, 10
+				5, 2, 5
+				5, 1, 5
+				5, 2, 5
+				5, 1, 20
+				6, 1, 0
+				7, 1, 5
+				8, 1, 0"</PowerOnStage>
+		<LPOnStage>"0, 0, 0"</LPOnStage>
+		<EsdPowerOnStage>"5, 2, 300
+				5, 1, 5
+				5, 2, 5
+				5, 1, 20
+				6, 1, 0
+				7, 1, 5
+				8, 1, 0"</EsdPowerOnStage>
+
+		<!--Power off timming-->
+		<HSOffStage>"7, 0, 0
+				8, 0, 20"</HSOffStage>
+		<PowerOffStage>"5, 0, 5
+				6, 0, 10
+				11, 0, 2
+				4, 0, 5
+				3, 0, 10
+				2, 0, 0"</PowerOffStage>
+		<OnlyPowerOffStage>"0, 0, 0"</OnlyPowerOffStage>
+		<EsdPowerOffStage>"5, 0, 5
+				6, 0, 10"</EsdPowerOffStage>
+		<!--Power timming config end-->
+		<!--Tp color support-->
+		<TpColorSupport>0</TpColorSupport>
+		<!--Backlight max nit-->
+		<!--Power timming config start-->
+		<!--event define
+		when mode is regulate to set min voltage, max voltage, enable load, disable load
+		mode, number, amplitude, min voltage, max voltage, enable load, disable load
+		mode:0-none, 1-regulator, 2-gpio
+		number:gpio num or ldo num
+		amplitude:3100000-3.1v, 1850000-1.85v, 5500000-5.5v
+		min voltage:1850000-1.85v
+		max voltage:5500000-5.5v
+		enable load:62000
+		disable load:80
+		-->
+		<LcdIovcc>"2, 6, 1900000"</LcdIovcc>
+		<LcdReset>"2, 38, 0"</LcdReset>
+		<LcdVsp>"2, 11, 6000000"</LcdVsp>
+		<LcdVsn>"2, 12, 6000000"</LcdVsn>
+		<PowerDownVsp>"2, 11, 5000000"</PowerDownVsp>
+		<PowerDownVsn>"2, 12, 5000000"</PowerDownVsn>
+		<!--IOVCC regulator name-->
+		<IovccName>"vddio"</IovccName>
+	</PanelEntry>
+</hwlcd>

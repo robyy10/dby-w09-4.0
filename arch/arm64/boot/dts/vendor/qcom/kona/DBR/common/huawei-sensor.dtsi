@@ -1,0 +1,29 @@
+&tlmm {
+	ak8789_default: ak8789_default {
+		mux {
+			pins = "gpio113";
+			function =  "gpio";
+		};
+		config {
+			pins = "gpio113";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+	};
+};
+
+&huawei_hall_sensor {
+	compatible = "huawei,hall-ak8789";
+	pinctrl-names = "default";
+	pinctrl-0 = <&ak8789_default>;
+	vdd-supply = <&pm8150a_l8>;
+	status = "ok";
+
+	huawei,hall_0 {
+		huawei,single-n-pole = <&tlmm 113 0>;
+		huawei,id = <0>;
+		huawei,type = <0x01>;
+		huawei,wakeup-flag = <0x4000>;
+		huawei,default-state = "on";
+	};
+};

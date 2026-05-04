@@ -1,0 +1,1 @@
+obj-$(CONFIG_INPUT_BTKB_LED)	+= btkb_led.o
