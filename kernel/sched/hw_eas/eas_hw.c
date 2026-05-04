@@ -26,7 +26,7 @@
 #ifdef CONFIG_HW_EAS_SYSFS
 
 #ifdef CONFIG_HW_SCHED_PRED_LOAD_WINDOW_SIZE_TUNNABLE
-#include "hw_walt/pred_load.h"
+#include "../hw_walt/pred_load.h"
 #endif
 #endif /* CONFIG_HW_EAS_SYSFS */
 

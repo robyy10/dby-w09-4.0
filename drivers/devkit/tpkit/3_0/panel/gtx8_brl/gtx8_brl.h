@@ -23,7 +23,7 @@
 #include <linux/regulator/consumer.h>
 #include <linux/of_gpio.h>
 #endif
-#include <huawei_ts_kit.h>
+#include "huawei_ts_kit.h"
 
 
 #define GTP_DRIVER_VERSION "v1.0<2020/07/03>"

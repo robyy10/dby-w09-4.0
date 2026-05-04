@@ -19,7 +19,7 @@
 #include <linux/platform_device.h>
 #include <linux/err.h>
 #include <linux/notifier.h>
-#include <huawei_ts_kit.h>
+#include "huawei_ts_kit.h"
 #include <huawei_platform/log/hw_log.h>
 
 #define TP_COLOR_BUF_SIZE 20

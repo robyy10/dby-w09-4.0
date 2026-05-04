@@ -16,6 +16,7 @@ endif
 ifeq ($(CONFIG_HUAWEI_DEVKIT_QCOM_3_0),y)
 obj-$(CONFIG_HUAWEI_TS_KIT_3_0) += tpkits.o
 tpkits-objs += huawei_ts_kit_core.o huawei_ts_kit_fsnode.o huawei_ts_kit_api.o huawei_ts_kit_algo.o huawei_ts_kit_csvparse.o huawei_ts_kit_misc.o qcom_adapter/tpkit_cmdline_parse.o qcom_adapter/tpkit_platform_adapter.o
+EXTRA_CFLAGS += -I$(srctree)/drivers/devkit/tpkit/3_0
 EXTRA_CFLAGS += -Itechpack/display
 EXTRA_CFLAGS += -Itechpack/display/msm/dsi
 endif

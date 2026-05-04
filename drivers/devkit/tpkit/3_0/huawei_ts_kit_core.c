@@ -37,12 +37,12 @@
 #include <linux/io.h>
 #include <linux/hwspinlock.h>
 #include <linux/version.h>
-#include <huawei_ts_kit.h>
-#include <huawei_ts_kit_platform.h>
-#include <huawei_ts_kit_misc.h>
+#include "huawei_ts_kit.h"
+#include "huawei_ts_kit_platform.h"
+#include "huawei_ts_kit_misc.h"
 #include <tpkit_platform_adapter.h>
-#include <huawei_ts_kit_api.h>
-#include <huawei_ts_kit_algo.h>
+#include "huawei_ts_kit_api.h"
+#include "huawei_ts_kit_algo.h"
 #ifdef CONFIG_LCD_KIT_HYBRID
 #include "hybrid/huawei_ts_kit_hybrid_core.h"
 #endif

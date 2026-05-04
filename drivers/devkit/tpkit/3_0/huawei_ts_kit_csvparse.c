@@ -18,7 +18,7 @@
 #include <linux/delay.h>
 #include <linux/slab.h>
 #include <linux/uaccess.h>
-#include <huawei_ts_kit.h>
+#include "huawei_ts_kit.h"
 
 #define SUPPORT_UNIQUE_TEST 1
 #define STRTOL_LEN 10

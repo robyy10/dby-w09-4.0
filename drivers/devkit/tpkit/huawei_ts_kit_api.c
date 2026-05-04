@@ -32,8 +32,8 @@
 #include <linux/sched/rt.h>
 #include <linux/fb.h>
 #include <linux/workqueue.h>
-#include <huawei_ts_kit.h>
-#include <huawei_ts_kit_api.h>
+#include "huawei_ts_kit.h"
+#include "huawei_ts_kit_api.h"
 #include <tpkit_platform_adapter.h>
 #include "../lcdkit/lcdkit1.0/include/lcdkit_ext.h"
 

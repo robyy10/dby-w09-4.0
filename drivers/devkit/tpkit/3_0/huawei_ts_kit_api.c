@@ -13,10 +13,10 @@
  * GNU General Public License for more details.
  *
  */
-#include <huawei_ts_kit.h>
-#include <huawei_ts_kit_platform.h>
-#include <huawei_ts_kit_api.h>
-#include <huawei_ts_kit_misc.h>
+#include "huawei_ts_kit.h"
+#include "huawei_ts_kit_platform.h"
+#include "huawei_ts_kit_api.h"
+#include "huawei_ts_kit_misc.h"
 #include "trace-events-touch.h"
 #include "huawei_ts_kit_algo.h"
 #include <tpkit_platform_adapter.h>

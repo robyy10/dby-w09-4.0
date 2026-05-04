@@ -19,7 +19,7 @@
 #include <linux/string.h>
 #include <linux/version.h>
 
-#include "./include/hw_rscan_utils.h"
+#include "hw_rscan_utils.h"
 
 int get_selinux_enforcing(void);
 int sescan_hookhash(uint8_t *hash, size_t hash_len);
