@@ -447,6 +447,20 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -std=gnu89
+
+# Auto-generate techpack_autoconf.h from .conf files if missing
+$(srctree)/include/generated/techpack_autoconf.h:
+	@mkdir -p $(srctree)/include/generated
+	@echo "/* Auto-generated from techpack .conf files */" > $@
+	@echo "#ifndef __TECHPACK_AUTOCONF_H__" >> $@
+	@echo "#define __TECHPACK_AUTOCONF_H__" >> $@
+	@for conf in $(srctree)/techpack/*/config/*kona*.conf; do \
+		[ -f "$$conf" ] && grep "^export CONFIG_" $$conf | \
+		sed 's/^export //;s/=y$$/ 1/;s/=m$$/ 1/' | \
+		awk '{print "#ifndef " $$1; print "#define " $$1 " " $$2; print "#endif"}'; \
+		done >> $@ 2>/dev/null || true
+	@echo "#endif" >> $@
+
 KBUILD_CPPFLAGS := -D__KERNEL__
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
