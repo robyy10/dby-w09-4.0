@@ -481,7 +481,7 @@ CONFIG_RANDOMIZE_MODULE_REGION_FULL=y
 #
 # Boot options
 #
-CONFIG_CMDLINE="cgroup_disable=pressure"
+CONFIG_CMDLINE="cgroup_disable=pressure ramoops.mem_address=0xFFC00000 ramoops.mem_size=0x400000 ramoops.console_size=0x100000"
 # CONFIG_CMDLINE_FROM_BOOTLOADER is not set
 CONFIG_CMDLINE_EXTEND=y
 # CONFIG_CMDLINE_FORCE is not set
@@ -6417,7 +6417,10 @@ CONFIG_SDCARD_FS=y
 # CONFIG_QNX4FS_FS is not set
 # CONFIG_QNX6FS_FS is not set
 # CONFIG_ROMFS_FS is not set
-# CONFIG_PSTORE is not set
+CONFIG_PSTORE=y
+CONFIG_PSTORE_CONSOLE=y
+CONFIG_PSTORE_RAM=y
+CONFIG_PSTORE_DEFAULT_KMSG_BYTES=0x100000
 # CONFIG_SYSV_FS is not set
 # CONFIG_UFS_FS is not set
 CONFIG_EROFS_FS=y
