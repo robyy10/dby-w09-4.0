@@ -10,15 +10,15 @@
 #include <linux/uaccess.h>
 #include <linux/atomic.h>
 #include <sound/asound.h>
-#include "../include/dsp/msm-dts-srs-tm-config.h"
-#include "../include/dsp/apr_audio-v2.h"
-#include "../include/dsp/q6adm-v2.h"
-#include "../include/dsp/q6audio-v2.h"
-#include "../include/dsp/q6afe-v2.h"
-#include "../include/dsp/q6core.h"
-#include "../include/dsp/audio_cal_utils.h"
-#include "../include/dsp/q6common.h"
-#include "../include/ipc/apr.h"
+#include <dsp/msm-dts-srs-tm-config.h>
+#include <dsp/apr_audio-v2.h>
+#include <dsp/q6adm-v2.h>
+#include <dsp/q6audio-v2.h>
+#include <dsp/q6afe-v2.h>
+#include <dsp/q6core.h>
+#include <dsp/audio_cal_utils.h>
+#include <dsp/q6common.h>
+#include <ipc/apr.h>
 #include "adsp_err.h"
 
 #define TIMEOUT_MS 1000
@@ -108,6 +108,7 @@ struct adm_ctl {
 	int native_mode;
 	bool get_hal_ec_en;
 	bool is_voip_ec_enable;
+	bool ec_special_handle;
 };
 
 static struct adm_ctl			this_adm;
@@ -222,6 +223,13 @@ void adm_set_viop_ec_enable(bool is_enable)
 
 }
 EXPORT_SYMBOL_GPL(adm_set_viop_ec_enable);
+
+bool adm_get_viop_ec_enable(void)
+{
+	pr_info("%s:voip ec enable is %d", __func__, this_adm.is_voip_ec_enable);
+	return this_adm.is_voip_ec_enable;
+}
+EXPORT_SYMBOL_GPL(adm_get_viop_ec_enable);
 
 int adm_get_topology_for_port_from_copp_id(int port_id, int copp_id)
 {
@@ -2690,6 +2698,22 @@ int adm_arrange_mch_ep2_map(struct adm_cmd_device_open_v6 *open_v6,
 	return rc;
 }
 
+static bool chose_custom_channel_map_in_mode2(int port_idx, int idx)
+{
+	if ((port_idx == IDX_AFE_PORT_ID_QUINARY_MI2S_RX ||
+		port_idx == IDX_AFE_PORT_ID_PRIMARY_MI2S_RX ||
+		port_idx == IDX_AFE_PORT_ID_RX_CODEC_DMA_RX_0 ||
+		port_idx == IDX_AFE_PORT_ID_PRIMARY_TDM_RX_0) &&
+		this_adm.get_hal_ec_en && idx == ADM_MCH_MAP_IDX_REC)
+		return true;
+
+	if (port_idx == IDX_SLIMBUS_7_RX && this_adm.ec_special_handle &&
+		this_adm.get_hal_ec_en && idx == ADM_MCH_MAP_IDX_REC)
+		return true;
+
+	return false;
+}
+
 static int adm_arrange_mch_map_v8(
 		struct adm_device_endpoint_payload *ep_payload,
 		int path, int channel_mode, int port_idx)
@@ -2709,8 +2733,10 @@ static int adm_arrange_mch_map_v8(
 	default:
 		goto non_mch_path;
 	};
-	pr_info("%s: is_voip_ec_enable is %d idx %d channel_mode %d port_idx %d, get_hal_ec_en:%d\n", __func__,
-		this_adm.is_voip_ec_enable, idx, channel_mode, port_idx, this_adm.get_hal_ec_en);
+	pr_info("%s: is_voip_ec_enable is %d idx %d channel_mode %d, "
+		"port_idx %d, get_hal_ec_en:%d, ec_special_handle:%d\n",
+		__func__, this_adm.is_voip_ec_enable, idx, channel_mode,
+		port_idx, this_adm.get_hal_ec_en, this_adm.ec_special_handle);
 
 	if ((ep_payload->dev_num_channel > 2) &&
 		(port_channel_map[port_idx].set_channel_map ||
@@ -2725,11 +2751,14 @@ static int adm_arrange_mch_map_v8(
 				PCM_FORMAT_MAX_NUM_CHANNEL_V8);
 	} else {
 		if (channel_mode == 1) {
-			ep_payload->dev_channel_mapping[0] = PCM_CHANNEL_FC;
+			if (port_idx == IDX_SLIMBUS_7_TX &&this_adm.get_hal_ec_en &&
+				this_adm.is_voip_ec_enable && this_adm.ec_special_handle) {
+				ep_payload->dev_channel_mapping[0] = PCM_CHANNEL_FL;
+			} else {
+				ep_payload->dev_channel_mapping[0] = PCM_CHANNEL_FC;
+			}
 		} else if (channel_mode == 2) {
-			if ((port_idx == IDX_AFE_PORT_ID_QUINARY_MI2S_RX || port_idx == IDX_AFE_PORT_ID_PRIMARY_MI2S_RX ||
-				port_idx == IDX_AFE_PORT_ID_RX_CODEC_DMA_RX_0) &&
-				this_adm.get_hal_ec_en && idx == ADM_MCH_MAP_IDX_REC) {
+			if (chose_custom_channel_map_in_mode2(port_idx, idx)) {
 				ep_payload->dev_channel_mapping[0] = PCM_CHANNEL_LS;
 				ep_payload->dev_channel_mapping[1] = PCM_CHANNEL_RS;
 			} else {
@@ -5608,7 +5637,7 @@ done:
 }
 EXPORT_SYMBOL(adm_get_doa_tracking_mon);
 
-static void get_ec_hal_en_flag(void)
+static void get_ec_hal_en_flag()
 {
 	struct device_node *hw_audio_node = NULL;
 	struct device_node *sub_node = NULL;
@@ -5617,18 +5646,22 @@ static void get_ec_hal_en_flag(void)
 	if (hw_audio_node == NULL) {
 		pr_warn("%s: Cannot find hw audio node\n", __func__);
 		this_adm.get_hal_ec_en = false;
+		this_adm.ec_special_handle = false;
 	} else {
 		sub_node = of_get_child_by_name(hw_audio_node, "hardware_info");
 		if (sub_node == NULL) {
 			pr_warn("%s: hardware_info not existed, skip\n",
 				__func__);
 			this_adm.get_hal_ec_en = false;
+			this_adm.ec_special_handle = false;
 			return;
 		}
 		this_adm.get_hal_ec_en = of_property_read_bool(sub_node,
 				"get_ec_in_hal");
-		pr_info("%s: get_hal_ec_en is %s\n", __func__,
-				this_adm.get_hal_ec_en ? "ture" : "false");
+		this_adm.ec_special_handle = of_property_read_bool(sub_node,
+				"ec_special_handle");
+		pr_info("%s:get_hal_ec_en:%d, ec_special_handle:%d\n", __func__,
+			this_adm.get_hal_ec_en, this_adm.ec_special_handle);
 	}
 }
 

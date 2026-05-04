@@ -1,7 +1,3 @@
-ccflags-y += -I$(srctree)
-ccflags-y += -I$(srctree)/techpack/camera/include
-ccflags-y += -I$(srctree)/techpack/camera/include/uapi
-
 obj-$(CONFIG_SPECTRA_CAMERA) += cam_req_mgr/
 obj-$(CONFIG_SPECTRA_CAMERA) += cam_utils/
 obj-$(CONFIG_SPECTRA_CAMERA) += cam_core/
