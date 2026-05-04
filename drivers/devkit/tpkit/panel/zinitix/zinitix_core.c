@@ -574,7 +574,7 @@ int set_xy_resolution(struct zinitix_platform_data *zinitix_pdata)
 	return ret;
 }
 
-int set_irq_mode()
+int set_irq_mode(void)
 {
 	int cmd_len = 2;
 	u16 cmd[2] = { 0, 0 };

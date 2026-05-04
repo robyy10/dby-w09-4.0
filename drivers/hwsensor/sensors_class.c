@@ -21,8 +21,8 @@
 #include <linux/rwsem.h>
 #include <linux/string.h>
 #include <securec.h>
-#include <apsensor_channel/ap_sensor_route.h>
-#include <apsensor_channel/ap_sensor.h>
+#include "apsensor_channel/ap_sensor_route.h"
+#include "apsensor_channel/ap_sensor.h"
 #include "sensors_class.h"
 #include "xhub_router/xhub_pm.h"
 #include "sensors_sysfs_als.h"
@@ -624,23 +624,6 @@ static ssize_t attr_als_rgb_data_under_tp_store(struct device *dev,
     return count;
 }
 
-static char als_noise_data[MAX_STR_SIZE] = {'\0'};
-
-static ssize_t attr_als_noise_show(struct device *dev, struct device_attribute *attr, char *buf)
-{
-	return snprintf_s(buf, MAX_STR_SIZE, MAX_STR_SIZE - 1, "%s\n", als_noise_data);
-}
-
-static ssize_t attr_als_noise_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
-{
-	if (buf == NULL) {
-	    pr_err("%s:buf is invalid", __func__);
-	}
-	memcpy_s(als_noise_data, sizeof(als_noise_data), buf, count);
-	pr_info("%s:%s", __func__, als_noise_data);
-	return count;
-}
-
 static ssize_t attr_als_calibrate_under_tp_show(struct device *dev,
     struct device_attribute *attr, char *buf)
 {
@@ -658,7 +641,7 @@ static void get_als_calibrate_after_sale_info_from_dts(void)
     } else {
         hwlog_info("%s, read L-Sensor type : %s\n", __func__, als_sensor_name);
         index = 0;
-        while(als_sensor_name[index] != ' ' && als_sensor_name[index] != '\0') {
+        while(index < APP_INFO_VALUE_LENTH && als_sensor_name[index] != ' ' && als_sensor_name[index] != '\0') {
             index++;
         }
         als_sensor_name[index] = '\0';
@@ -706,8 +689,6 @@ static DEVICE_ATTR(als_calibrate_under_tp, 0440,
 static DEVICE_ATTR(als_rgb_data_under_tp, 0660,
     attr_als_rgb_data_under_tp_show, attr_als_rgb_data_under_tp_store);
 
-static DEVICE_ATTR(als_noise, 0660, attr_als_noise_show, attr_als_noise_store);
-
 static ssize_t attr_als_under_tp_calidata_store(struct device *dev,
     struct device_attribute *attr, const char *buf, size_t count)
 {
@@ -722,21 +703,6 @@ static ssize_t attr_als_under_tp_calidata_show(struct device *dev,
 }
 static DEVICE_ATTR(set_als_under_tp_calidata, 0660,
     attr_als_under_tp_calidata_show, attr_als_under_tp_calidata_store);
-
-/* vice als node */
-static ssize_t attr_als_under_tp_calidata_store_1(struct device *dev,
-	struct device_attribute *attr, const char *buf, size_t count)
-{
-    return als_under_tp_calidata_store(dev, attr, buf, count);
-}
-
-static ssize_t attr_als_under_tp_calidata_show_1(struct device *dev,
-	struct device_attribute *attr, char *buf)
-{
-    return als_under_tp_calidata_show(dev, attr, buf);
-}
-static DEVICE_ATTR(set_als_under_tp_calidata_1, 0660,
-	attr_als_under_tp_calidata_show_1, attr_als_under_tp_calidata_store_1);
 
 /* files create for ps sensor */
 static ssize_t attr_ps_send_recever_store(struct device *dev,
@@ -810,7 +776,7 @@ static ssize_t attr_als_calibrate_dbv_sec_show(struct device *dev,
 	} else {
 		hwlog_info("%s, read L-Sensor type : %s\n", __func__, als_lcd_name);
 		index = 0;
-		while (als_lcd_name[index] != ' ' && als_lcd_name[index] != '\0')
+		while (index < APP_INFO_VALUE_LENTH && als_lcd_name[index] != ' ' && als_lcd_name[index] != '\0')
 			index++;
 		als_lcd_name[index] = '\0';
 	}
@@ -840,16 +806,14 @@ static DEVICE_ATTR(als_rgb_debug_enable, 0220,
     NULL, attr_als_rgb_debug_enable_store);
 
 static struct attribute *als_sensor_attrs[] = {
-	&dev_attr_als_rgb_data_under_tp.attr,
-	&dev_attr_set_als_under_tp_calidata.attr,
-	&dev_attr_set_als_under_tp_calidata_1.attr,
-	&dev_attr_als_calibrate_under_tp.attr,
-	&dev_attr_als_calibrate_after_sale.attr,
+    &dev_attr_als_rgb_data_under_tp.attr,
+    &dev_attr_set_als_under_tp_calidata.attr,
+    &dev_attr_als_calibrate_under_tp.attr,
+    &dev_attr_als_calibrate_after_sale.attr,
 	&dev_attr_als_calibrate_dbv_sec.attr,
-	&dev_attr_als_rgb_enable.attr,
-	&dev_attr_als_rgb_debug_enable.attr,
-	&dev_attr_als_noise.attr,
-	NULL,
+    &dev_attr_als_rgb_enable.attr,
+    &dev_attr_als_rgb_debug_enable.attr,
+    NULL,
 };
 
 static const struct attribute_group als_sensor_attrs_grp = {

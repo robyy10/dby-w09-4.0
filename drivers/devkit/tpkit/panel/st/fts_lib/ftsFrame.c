@@ -76,7 +76,7 @@ int getOffsetFrame(u16 address, u16 *offset)
 }
 
 
-int getChannelsLength()
+int getChannelsLength(void)
 {
 	int ret;
 	u8* data = (u8*)kmalloc(2*sizeof(u8), GFP_KERNEL);
@@ -196,7 +196,7 @@ int getMSFrame(u16 type, MutualSenseFrame *frame, int keep_first_row)
 
 }
 
-int getSenseLen()
+int getSenseLen(void)
 {
 	int ret;
 
@@ -213,7 +213,7 @@ int getSenseLen()
 	return sense_len;
 }
 
-int getForceLen()
+int getForceLen(void)
 {
 	int ret;
 

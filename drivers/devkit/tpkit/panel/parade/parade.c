@@ -9856,7 +9856,7 @@ exit:
 	return rc;
 }
 
-static int parade_check_cmd_status()
+static int parade_check_cmd_status(void)
 {
 	int t = 0;
 	int timeout_ms = PARADE_WORK_WAIT_TIMEOUT;
@@ -9871,7 +9871,7 @@ static int parade_check_cmd_status()
 	return NO_ERR;
 }
 
-static void parade_finish_cmd()
+static void parade_finish_cmd(void)
 {
 	tskit_parade_data->isworkongoing = false;
 	wake_up(&tskit_parade_data->wait_q);

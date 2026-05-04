@@ -34,7 +34,7 @@
 #include <linux/workqueue.h>
 #include <linux/vmalloc.h>
 #include <linux/notifier.h>
-#include <huawei_ts_kit.h>
+#include "huawei_ts_kit.h"
 #include <lcdkit_panel.h>
 
 extern struct lcdkit_panel_data lcdkit_info;

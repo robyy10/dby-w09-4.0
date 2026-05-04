@@ -19,7 +19,7 @@
 #include "huawei_ts_kit_misc.h"
 #include "trace-events-touch.h"
 #include "huawei_ts_kit_algo.h"
-#include <tpkit_platform_adapter.h>
+#include "tpkit_platform_adapter.h"
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/ctype.h>

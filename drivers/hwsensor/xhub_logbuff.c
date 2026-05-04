@@ -28,8 +28,8 @@
 #include <asm/io.h>
 #include <linux/sysfs.h>
 #include <securec.h>
-#include <apsensor_channel/ap_sensor_route.h>
-#include <apsensor_channel/ap_sensor.h>
+#include "apsensor_channel/ap_sensor_route.h"
+#include "apsensor_channel/ap_sensor.h"
 
 #define FLUSH_BUFF_SIZE      2
 #define XHUB_LOG_ABNORMAL '2'

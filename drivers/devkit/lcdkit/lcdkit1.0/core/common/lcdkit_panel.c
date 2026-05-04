@@ -16,7 +16,7 @@
  *
  */
 
-#include <huawei_ts_kit.h>
+#include "huawei_ts_kit.h"
 #include "lcdkit_dbg.h"
 #include "lcdkit_panel.h"
 #include "lcdkit_parse.h"

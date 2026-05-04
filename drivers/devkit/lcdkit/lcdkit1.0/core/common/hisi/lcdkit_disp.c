@@ -19,7 +19,7 @@
 #include <soc_acpu_baseaddr_interface.h>
 #include <soc_sctrl_interface.h>
 #include <huawei_platform/log/log_jank.h>
-#include <huawei_ts_kit.h>
+#include "huawei_ts_kit.h"
 #include <linux/hisi/hw_cmdline_parse.h> // for runmode_is_factory
 #include "global_ddr_map.h"
 #include "hisi_fb.h"

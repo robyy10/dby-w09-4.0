@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-only
 
+
 ccflags-y += -I$(srctree)/techpack/camera/drivers/cam_utils/
 ccflags-y += -I$(srctree)/techpack/camera/drivers/cam_cdm/
 ccflags-y += -I$(srctree)/techpack/camera/drivers/cam_core/
@@ -13,6 +14,8 @@ ccflags-y += -I$(srctree)/techpack/camera/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_
 ccflags-y += -I$(srctree)/techpack/camera/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/include
 ccflags-y += -I$(srctree)/techpack/camera/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw/vfe_top/include
 ccflags-y += -I$(srctree)/techpack/camera/drivers/cam_isp/isp_hw_mgr/isp_hw/vfe_hw
+ccflags-y += -I$(srctree)/techpack/camera/include
+ccflags-y += -I$(srctree)/techpack/camera/include/uapi
 
 obj-$(CONFIG_SPECTRA_CAMERA) += cam_vfe_camif_lite_ver2.o cam_vfe_top.o cam_vfe_top_common.o
 obj-$(CONFIG_SPECTRA_CAMERA) += cam_vfe_top_ver3.o cam_vfe_top_ver2.o cam_vfe_camif_ver2.o

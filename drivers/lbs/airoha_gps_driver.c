@@ -507,7 +507,7 @@ static int airoha_gps_power_remove(struct platform_device *pdev)
 	return 0;
 }
 
-const int airoha_gps_get_dcxo_type()
+const int airoha_gps_get_dcxo_type(void)
 {
 	struct device_node *dp = of_find_node_by_path("/huawei_gps_info");
 	if(!dp) {
@@ -520,7 +520,7 @@ const int airoha_gps_get_dcxo_type()
 	return of_property_read_bool(dp, "qcom,gps_dcxo");
 }
 
-const int airoha_gps_get_power_gpioctrl()
+const int airoha_gps_get_power_gpioctrl(void)
 {
 	struct device_node *dp = of_find_node_by_path("/huawei_gps_info");
 	if(!dp) {

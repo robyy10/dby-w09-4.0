@@ -1381,7 +1381,7 @@ static int nfc_get_ese_pwr_req_gpio(void)
 	return 0;
 }
 
-static int get_dev_name_type()
+static int get_dev_name_type(void)
 {
 	int type = 0;
 	int ret;

@@ -34,7 +34,7 @@
 #endif
 #include <linux/thermal.h>
 #ifdef CONFIG_LCD_KIT_HYBRID
-#include <lcd_kit_hybrid_core.h>
+#include "lcd_kit_hybrid_core.h"
 #endif
 
 #define MAX_DELAY_TIME 200

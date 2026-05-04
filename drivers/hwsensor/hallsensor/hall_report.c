@@ -73,7 +73,7 @@ static struct sensors_classdev hall_cdev = {
 	.sensors_poll_delay = NULL,
 };
 
-static void init_ext_hall_notify_config()
+static void init_ext_hall_notify_config(void)
 {
 	unsigned int i;
 
@@ -240,7 +240,7 @@ free_input_dev:
 	return ret;
 }
 
-void hall_report_unregister()
+void hall_report_unregister(void)
 {
 	sensors_classdev_unregister(&hall_cdev);
 	if (hall_input != NULL) {

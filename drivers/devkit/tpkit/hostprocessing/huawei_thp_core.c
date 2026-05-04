@@ -57,7 +57,7 @@
 #endif
 
 #if defined(CONFIG_LCD_KIT_DRIVER)
-#include <lcd_kit_core.h>
+#include "lcd_kit_core.h"
 #endif
 
 #ifdef CONFIG_INPUTHUB_20

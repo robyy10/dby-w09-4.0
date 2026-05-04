@@ -191,7 +191,7 @@ int wait_for_flash_ready(u8 type)
 	return OK;
 }
 
-int fts_warm_boot()
+int fts_warm_boot(void)
 {
 	u8 cmd[4] = {FTS_CMD_HW_REG_W, 0x00, 0x00, WARM_BOOT_VALUE}; //write the command to perform the warm boot
 	u16ToU8_be(ADDR_WARM_BOOT, &cmd[1]);
@@ -325,7 +325,7 @@ END:
 	return res;
 }
 
-int flash_unlock()
+int flash_unlock(void)
 {
 	u8 cmd[3] = {FLASH_CMD_UNLOCK, FLASH_UNLOCK_CODE0, FLASH_UNLOCK_CODE1}; //write the command to perform the unlock
 
@@ -341,7 +341,7 @@ int flash_unlock()
 
 }
 
-int flash_erase_unlock()
+int flash_erase_unlock(void)
 {
 	u8 cmd[3] = {FLASH_CMD_WRITE_REGISTER, FLASH_ERASE_UNLOCK_CODE0, FLASH_ERASE_UNLOCK_CODE1}; //write the command to perform the unlock for erasing the flash
 
@@ -359,7 +359,7 @@ int flash_erase_unlock()
 
 }
 
-int flash_full_erase()
+int flash_full_erase(void)
 {
 	int status;
 	u8 cmd[3] = {FLASH_CMD_WRITE_REGISTER, FLASH_ERASE_CODE0, FLASH_ERASE_CODE1}; //write the command to erase the flash

@@ -53,7 +53,7 @@
 #include <linux/hisi/hw_cmdline_parse.h>
 #endif
 #ifdef CONFIG_LCD_KIT_DRIVER
-#include <lcd_kit_core.h>
+#include "lcd_kit_core.h"
 #endif
 #ifdef CONFIG_HUAWEI_THP_QCOM
 #include "touchscreen_interface.h"

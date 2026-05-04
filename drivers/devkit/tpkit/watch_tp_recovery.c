@@ -146,7 +146,7 @@ void ts_recovery_init(void)
 	TS_LOG_INFO("%s end\n", __func__);
 }
 
-void release_memory()
+void release_memory(void)
 {
 	struct ts_cmd_node cmd;
 
@@ -184,7 +184,7 @@ static void ts_recovery_work(struct work_struct *work)
 		msecs_to_jiffies(TS_RECOVERY_TIMEOUT));
 }
 
-void ts_stop_recovery_timer()
+void ts_stop_recovery_timer(void)
 {
 	TS_LOG_INFO("stop recovery timer\n");
 	del_timer(&g_ts_recovery_data.recovery_timer);

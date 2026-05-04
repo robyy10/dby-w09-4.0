@@ -31,7 +31,7 @@
 #include <linux/semaphore.h>
 #include <huawei_platform/log/hw_log.h>
 #if defined(CONFIG_LCD_KIT_DRIVER)
-#include <lcd_kit_core.h>
+#include "lcd_kit_core.h"
 #endif
 #if defined(CONFIG_HUAWEI_DEVKIT_MTK_3_0)
 #include <linux/platform_data/spi-mt65xx.h>

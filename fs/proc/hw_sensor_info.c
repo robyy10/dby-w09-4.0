@@ -133,7 +133,7 @@ static struct kobj_attribute sys_set_appinfo_init = {
 	.store = hw_set_app_info_node_store,
 };
 
-static int app_info_node_init()
+static int app_info_node_init(void)
 {
 	int ret;
 

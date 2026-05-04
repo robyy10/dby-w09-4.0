@@ -24,8 +24,8 @@
 #include "sensors_sysfs_als.h"
 #include "xhub_router/xhub_pm.h"
 #include <linux/mtd/hw_nve_interface.h>
-#include <apsensor_channel/ap_sensor_route.h>
-#include <apsensor_channel/ap_sensor.h>
+#include "apsensor_channel/ap_sensor_route.h"
+#include "apsensor_channel/ap_sensor.h"
 #include "sensors_sysfs.h"
 
 #define MAX_STR_SIZE 1024
@@ -101,7 +101,7 @@ int write_calibrate_data_to_nv(int nv_number, int nv_size,
 
 
  /* read underscreen als nv data */
-int als_under_tp_nv_read()
+int als_under_tp_nv_read(void)
 {
     uint8_t *buf = NULL;
     size_t cal_data_left = sizeof(struct als_under_tp_calidata);
@@ -250,7 +250,7 @@ int als_underscreen_calidata_save(void)
     return 0;
 }
 
-void send_als_save_data_request()
+void send_als_save_data_request(void)
 {
     als_buf_to_hal_t als_buf;
     int ret;

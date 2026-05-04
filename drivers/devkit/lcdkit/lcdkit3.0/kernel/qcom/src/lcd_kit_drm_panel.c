@@ -23,11 +23,11 @@
 #endif
 #include <linux/device.h>
 #include <linux/backlight.h>
-#include <lcd_kit_displayengine.h>
+#include "lcd_kit_displayengine.h"
 #include <huawei_platform/log/log_jank.h>
 #include <linux/completion.h>
 #ifdef CONFIG_LCD_KIT_HYBRID
-#include <lcd_kit_hybrid_core.h>
+#include "lcd_kit_hybrid_core.h"
 #endif
 #define MAX_DBV 4095
 #define NO_POWER_OFF 1
