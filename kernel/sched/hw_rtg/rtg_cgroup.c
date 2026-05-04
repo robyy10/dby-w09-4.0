@@ -20,10 +20,10 @@
 #include <linux/sched_clock.h>
 #include <trace/events/sched.h>
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,4,0))
-#include <../kernel/sched/walt/walt.h>
-#include <../kernel/sched/hw_walt/walt_common.h>
+#include "../kernel/sched/walt/walt.h"
+#include "../kernel/sched/hw_walt/walt_common.h"
 #else
-#include <../kernel/sched/walt.h>
+#include "../kernel/sched/walt.h"
 #include "../hw_walt/walt_common.h"
 #endif
 #include "include/rtg_sched.h"

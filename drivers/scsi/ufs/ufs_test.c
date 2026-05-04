@@ -23,7 +23,7 @@
 #include <scsi/scsi_device.h>
 #include <scsi/scsi_cmnd.h>
 #include <linux/delay.h>
-#include <../sd.h>
+#include "../sd.h"
 
 #define MODULE_NAME "ufs_test"
 

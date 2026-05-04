@@ -31,7 +31,7 @@
 #include <wlan_objmgr_psoc_obj.h>
 #include <wlan_objmgr_pdev_obj.h>
 #include <wlan_objmgr_vdev_obj.h>
-#include <../../core/src/wlan_scan_manager.h>
+#include "../../core/src/wlan_scan_manager.h"
 
 static inline struct wlan_lmac_if_scan_tx_ops *
 wlan_psoc_get_scan_txops(struct wlan_objmgr_psoc *psoc)

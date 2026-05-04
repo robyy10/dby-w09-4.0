@@ -23,7 +23,7 @@
 #include <linux/printk.h>
 #include <linux/cred.h>
 #include <linux/sched/task.h>
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 #include <trace/events/sched.h>
 
 static struct multi_frame_id_manager g_id_manager = {

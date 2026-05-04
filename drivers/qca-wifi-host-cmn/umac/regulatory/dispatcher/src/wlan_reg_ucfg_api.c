@@ -25,13 +25,13 @@
 #include <wlan_objmgr_vdev_obj.h>
 #include <wlan_reg_ucfg_api.h>
 #include <wlan_objmgr_psoc_obj.h>
-#include <../../core/src/reg_priv_objs.h>
-#include <../../core/src/reg_utils.h>
-#include <../../core/src/reg_services_common.h>
-#include <../../core/src/reg_lte.h>
-#include <../../core/src/reg_offload_11d_scan.h>
-#include <../../core/src/reg_build_chan_list.h>
-#include <../../core/src/reg_callbacks.h>
+#include "../../core/src/reg_priv_objs.h"
+#include "../../core/src/reg_utils.h"
+#include "../../core/src/reg_services_common.h"
+#include "../../core/src/reg_lte.h"
+#include "../../core/src/reg_offload_11d_scan.h"
+#include "../../core/src/reg_build_chan_list.h"
+#include "../../core/src/reg_callbacks.h"
 #include <qdf_module.h>
 
 QDF_STATUS ucfg_reg_register_event_handler(uint8_t vdev_id, reg_event_cb cb,

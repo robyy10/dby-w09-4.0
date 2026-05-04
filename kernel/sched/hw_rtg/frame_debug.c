@@ -18,7 +18,7 @@
 
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 
 #include "include/frame_info.h"
 #include "include/set_rtg.h"

@@ -21,7 +21,7 @@
 #include <linux/kernel.h>
 #include <linux/sched.h>
 #include <linux/sched/types.h>
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 #include "include/rtg_sched.h"
 #include "include/iaware_rtg.h"
 #ifdef CONFIG_HW_RTG_RT_THREAD_LIMIT

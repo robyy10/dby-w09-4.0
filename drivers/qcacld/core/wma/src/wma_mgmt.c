@@ -78,7 +78,7 @@
 #include "wmi_unified_bcn_api.h"
 #include <wlan_crypto_global_api.h>
 #include <wlan_mlme_main.h>
-#include <../../core/src/vdev_mgr_ops.h>
+#include "../../core/src/vdev_mgr_ops.h"
 
 #if !defined(REMOVE_PKT_LOG)
 #include <wlan_logging_sock_svc.h>

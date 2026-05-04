@@ -20,7 +20,7 @@
  * DOC: This file contains green ap north bound interface definitions
  */
 #include <wlan_green_ap_api.h>
-#include <../../core/src/wlan_green_ap_main_i.h>
+#include "../../core/src/wlan_green_ap_main_i.h"
 #include <wlan_objmgr_global_obj.h>
 #include "cfg_green_ap_params.h"
 #include "cfg_ucfg_api.h"

@@ -63,7 +63,7 @@
 #include <wlan_mlme_main.h>
 #include "host_diag_core_log.h"
 #include <wlan_mlme_api.h>
-#include <../../core/src/vdev_mgr_ops.h>
+#include "../../core/src/vdev_mgr_ops.h"
 #include "cdp_txrx_misc.h"
 #include <cdp_txrx_host_stats.h>
 

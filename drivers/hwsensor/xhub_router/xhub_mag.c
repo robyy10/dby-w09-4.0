@@ -30,8 +30,8 @@
 #include <linux/sysfs.h>
 #include <securec.h>
 #include <linux/fb.h>
-#include <../apsensor_channel/ap_sensor_route.h>
-#include <../apsensor_channel/ap_sensor.h>
+#include "../apsensor_channel/ap_sensor_route.h"
+#include "../apsensor_channel/ap_sensor.h"
 #include <linux/hrtimer.h>
 #include <linux/backlight.h>
 #include <linux/completion.h>

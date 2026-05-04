@@ -24,7 +24,7 @@
 #include <linux/list.h>
 #include <linux/jiffies.h>
 #include <trace/events/sched.h>
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 
 #define DYNAMIC_VIP_SEC_WIDTH 8
 #define DYNAMIC_VIP_MASK_BASE 0x00000000ff
@@ -39,10 +39,10 @@
 #define VIP_USE_CPU_ALLOWED 1
 
 #ifdef CONFIG_VIP_SCHED_OPT
-#include <../kernel/sched/tune.h>
-#include <../kernel/sched/walt.h>
-#include <../../drivers/misc/mediatek/sched/sched_ctl.h>
-#include <../kernel/sched/eas_plus.h>
+#include "../kernel/sched/tune.h"
+#include "../kernel/sched/walt.h"
+#include "../../drivers/misc/mediatek/sched/sched_ctl.h"
+#include "../kernel/sched/eas_plus.h"
 #endif
 
 #ifdef CONFIG_HW_EAS_SCHED

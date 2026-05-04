@@ -10,9 +10,9 @@
 
 #include <linux/version.h>
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,4,0))
-#include "walt.h"
+#include "../walt.h"
 #else
-#include "walt.h"
+#include "../walt.h"
 #endif
 #include <linux/sched/hw_rtg/rtg_sched.h>
 

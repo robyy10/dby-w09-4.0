@@ -72,7 +72,7 @@
 #include "../fts.h"//needed for including the define FW_H_FILE
 
 #ifdef FW_H_FILE
-#include <../fts_fw.h>
+#include "../fts_fw.h"
 #define LOAD_FW_FROM 1
 #else
 #define LOAD_FW_FROM 0

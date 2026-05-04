@@ -36,7 +36,7 @@
 #include <linux/dma-mapping.h>
 #include <linux/idr.h>
 #include <linux/kthread.h>
-#include <../drivers/ata/ahci.h>
+#include "../drivers/ata/ahci.h"
 #include <linux/export.h>
 #include <linux/debugfs.h>
 #include <linux/prefetch.h>

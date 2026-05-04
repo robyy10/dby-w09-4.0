@@ -20,7 +20,7 @@
 
 #include <net/sock.h>
 
-#include <../../../include/log/log_usertype.h>
+#include "../../../include/log/log_usertype.h"
 #include <huawei_platform/log/hwlog_kernel.h>
 
 void print_process_pid_name(struct inet_sock *inet)

@@ -5,7 +5,7 @@
 
 #include <video/msm_dba.h>
 #include <linux/extcon.h>
-#include <../../../extcon/extcon.h>
+#include "../../../extcon/extcon.h"
 #include "mdss_dba_utils.h"
 #include "mdss_hdmi_edid.h"
 #include "mdss_cec_core.h"

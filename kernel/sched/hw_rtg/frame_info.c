@@ -35,11 +35,11 @@
 #ifdef CONFIG_HW_SCHED_CLUSTER
 #include "../hw_cluster/sched_cluster.h"
 #else
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,4,0))
-#include <../kernel/sched/walt/walt.h>
+#include "../kernel/sched/walt/walt.h"
 #else
-#include <../kernel/sched/walt.h>
+#include "../kernel/sched/walt.h"
 #endif
 #endif
 #endif

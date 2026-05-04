@@ -43,7 +43,7 @@
 #include <linux/uaccess.h>
 #include <linux/workqueue.h>
 #ifdef CONFIG_HDMI_K3
-#include <../video/k3/hdmi/k3_hdmi.h>
+#include "../video/k3/hdmi/k3_hdmi.h"
 #endif
 #ifdef CONFIG_HUAWEI_HW_DEV_DCT
 #endif

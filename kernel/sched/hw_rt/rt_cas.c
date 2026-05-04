@@ -20,7 +20,7 @@
 #include <linux/version.h>
 #ifdef CONFIG_MTK_SCHED_BOOST
 #include "eas_plus.h"
-#include <../../drivers/misc/mediatek/sched/sched_ctl.h>
+#include "../../drivers/misc/mediatek/sched/sched_ctl.h"
 #endif
 
 extern unsigned long cpu_util(int cpu);

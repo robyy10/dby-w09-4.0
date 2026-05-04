@@ -19,9 +19,9 @@
 #include <linux/sched/hw_rtg/rtg.h>
 #include <linux/sched/hw_rtg/rtg_sched.h>
 #include <uapi/linux/sched/types.h>
-#include <../kernel/sched/sched.h>
-#include <../kernel/sched/walt.h>
-#include <../kernel/sched/tune.h>
+#include "../kernel/sched/sched.h"
+#include "../kernel/sched/walt.h"
+#include "../kernel/sched/tune.h"
 #include "../hw_cluster/sched_cluster.h"
 
 #ifdef CONFIG_HW_RTG_NORMALIZED_UTIL

@@ -22,7 +22,7 @@
 
 #include <target_if_green_ap.h>
 #include <wlan_green_ap_api.h>
-#include <../../core/src/wlan_green_ap_main_i.h>
+#include "../../core/src/wlan_green_ap_main_i.h"
 #include <target_if.h>
 #include <wmi_unified_api.h>
 

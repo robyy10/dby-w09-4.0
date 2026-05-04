@@ -17,10 +17,10 @@
 #include <linux/sysfs.h>
 #include <linux/device.h>
 
-#include <../techpack/video/msm/vidc/msm_vidc_internal.h>
-#include <../techpack/video/msm/vidc/msm_vidc_common.h>
-#include <../techpack/video/msm/vidc/msm_vidc_resources.h>
-#include <../techpack/video/msm/vidc/msm_vidc.h>
+#include "../techpack/video/msm/vidc/msm_vidc_internal.h"
+#include "../techpack/video/msm/vidc/msm_vidc_common.h"
+#include "../techpack/video/msm/vidc/msm_vidc_resources.h"
+#include "../techpack/video/msm/vidc/msm_vidc.h"
 
 static int msm_hw_vpu_voting = !1;
 

@@ -18,8 +18,8 @@
 #ifndef PS_SENSOR_H
 #define PS_SENSOR_H
 
-#include <../apsensor_channel/ap_sensor.h>
-#include <../apsensor_channel/ap_sensor_route.h>
+#include "../apsensor_channel/ap_sensor.h"
+#include "../apsensor_channel/ap_sensor_route.h"
 
 int thp_prox_event_report(int report_value[], unsigned int len);
 

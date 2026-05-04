@@ -18,7 +18,7 @@
 
 #include <chipset_common/hwqos/hwqos_common.h>
 
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 #include <linux/proc_fs.h>
 #include <linux/sched.h>
 #include <linux/sched/signal.h>

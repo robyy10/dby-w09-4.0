@@ -21,7 +21,7 @@
 #include <linux/sched.h>
 #include <linux/slab.h>
 #include <uapi/linux/sched/types.h>
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 #include <trace/events/sched.h>
 
 #include "include/iaware_rtg.h"

@@ -73,7 +73,7 @@
 #include "../fts.h"
 
 #ifdef LIMITS_H_FILE
-#include <../fts_limits.h>
+#include "../fts_limits.h"
 #endif
 
 static char tag[8] = "[ FTS ]\0";

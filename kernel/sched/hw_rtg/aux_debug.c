@@ -19,7 +19,7 @@
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <linux/version.h>
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 
 #include "include/aux_info.h"
 #include "include/aux.h"

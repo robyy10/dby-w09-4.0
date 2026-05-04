@@ -133,7 +133,7 @@
 #endif
 
 #ifdef TIMED_OUTPUT
-#include <../../../drivers/staging/android/timed_output.h>
+#include "../../../drivers/staging/android/timed_output.h"
 typedef struct timed_output_dev cdev_t;
 #else
 typedef struct led_classdev cdev_t;

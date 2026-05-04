@@ -19,13 +19,13 @@
 #include <linux/cpufreq.h>
 #include <linux/sched.h>
 #include <trace/events/sched.h>
-#include <../kernel/sched/sched.h>
+#include "../kernel/sched/sched.h"
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,4,0))
-#include <../kernel/sched/walt/walt.h>
+#include "../kernel/sched/walt/walt.h"
 #else
-#include <../kernel/sched/walt.h>
-#include <../kernel/sched/tune.h>
+#include "../kernel/sched/walt.h"
+#include "../kernel/sched/tune.h"
 #endif
 
 #include "include/rtg_perf_ctrl.h"

@@ -43,8 +43,8 @@
 #include <linux/timer.h>
 #include <linux/version.h>
 #include <huawei_platform/log/hw_log.h>
-#include <../apsensor_channel/ap_sensor.h>
-#include <../apsensor_channel/ap_sensor_route.h>
+#include "../apsensor_channel/ap_sensor.h"
+#include "../apsensor_channel/ap_sensor_route.h"
 #ifdef CONFIG_HUAWEI_DSM
 #include <dsm/dsm_pub.h>
 #endif

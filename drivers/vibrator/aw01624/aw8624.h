@@ -30,7 +30,7 @@
 #include <linux/mutex.h>
 #include <linux/cdev.h>
 #ifdef TIMED_OUTPUT
-#include <../../../drivers/staging/android/timed_output.h>
+#include "../../../drivers/staging/android/timed_output.h"
 #else
 #include <linux/leds.h>
 #endif

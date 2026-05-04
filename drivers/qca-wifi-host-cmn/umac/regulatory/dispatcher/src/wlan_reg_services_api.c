@@ -36,10 +36,10 @@
 #include "../../core/src/reg_services_common.h"
 #include "../../core/src/reg_db.h"
 #include "../../core/src/reg_db_parser.h"
-#include <../../core/src/reg_build_chan_list.h>
-#include <../../core/src/reg_opclass.h>
-#include <../../core/src/reg_callbacks.h>
-#include <../../core/src/reg_offload_11d_scan.h>
+#include "../../core/src/reg_build_chan_list.h"
+#include "../../core/src/reg_opclass.h"
+#include "../../core/src/reg_callbacks.h"
+#include "../../core/src/reg_offload_11d_scan.h"
 #include <wlan_objmgr_global_obj.h>
 
 #ifdef CONFIG_CHAN_NUM_API

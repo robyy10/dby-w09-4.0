@@ -22,7 +22,7 @@
 
 #include <qdf_status.h>
 #include <wlan_green_ap_ucfg_api.h>
-#include <../../core/src/wlan_green_ap_main_i.h>
+#include "../../core/src/wlan_green_ap_main_i.h"
 
 QDF_STATUS ucfg_green_ap_enable_egap(struct wlan_objmgr_pdev *pdev)
 {

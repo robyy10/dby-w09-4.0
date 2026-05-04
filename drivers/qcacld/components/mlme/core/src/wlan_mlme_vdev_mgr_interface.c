@@ -24,7 +24,7 @@
 #include "wma_api.h"
 #include "lim_types.h"
 #include <include/wlan_mlme_cmn.h>
-#include <../../core/src/vdev_mgr_ops.h>
+#include "../../core/src/vdev_mgr_ops.h"
 #include "wlan_psoc_mlme_api.h"
 #include "wlan_crypto_global_api.h"
 

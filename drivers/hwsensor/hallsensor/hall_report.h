@@ -1,8 +1,8 @@
 #ifndef __HALL_REPORT_H
 #define __HALL_REPORT_H
 
-#include <../apsensor_channel/ap_sensor.h>
-#include <../apsensor_channel/ap_sensor_route.h>
+#include "../apsensor_channel/ap_sensor.h"
+#include "../apsensor_channel/ap_sensor_route.h"
 
 #ifdef CONFIG_HUAWEI_DSM
 #include <dsm/dsm_pub.h>

@@ -23,8 +23,8 @@
 #include <wlan_cmn.h>
 #include <wlan_scan_ucfg_api.h>
 #include <wlan_scan_utils_api.h>
-#include <../../core/src/wlan_scan_cache_db.h>
-#include <../../core/src/wlan_scan_main.h>
+#include "../../core/src/wlan_scan_cache_db.h"
+#include "../../core/src/wlan_scan_main.h"
 #include <wlan_reg_services_api.h>
 
 #define MAX_IE_LEN 1024

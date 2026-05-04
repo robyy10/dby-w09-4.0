@@ -41,7 +41,7 @@
 #include <asm/io.h>
 #include <asm/irq.h>
 
-#include <../drivers/scsi/scsi.h>
+#include "../drivers/scsi/scsi.h"
 #include <scsi/scsi_host.h>
 
 #include <scsi/scsi.h>
