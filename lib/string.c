@@ -1096,13 +1096,3 @@ void fortify_panic(const char *name)
 	BUG();
 }
 EXPORT_SYMBOL(fortify_panic);
-
-/* Weak definitions for fortify overflow checks */
-void __read_overflow(void) {}
-EXPORT_SYMBOL(__read_overflow);
-void __read_overflow2(void) {}
-EXPORT_SYMBOL(__read_overflow2);
-void __read_overflow3(void) {}
-EXPORT_SYMBOL(__read_overflow3);
-void __write_overflow(void) {}
-EXPORT_SYMBOL(__write_overflow);
